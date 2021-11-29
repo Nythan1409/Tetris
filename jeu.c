@@ -131,7 +131,7 @@ void rotation(tetrimino* t, jeu* J){
 }
 
 int lignes_completes(jeu* J){
-  int lignes;
+  int lignes=0;
   int complete=1;
   int x,y;
   int x2,y2;
@@ -155,4 +155,45 @@ int lignes_completes(jeu* J){
   }
   afficher_grille(J);
   return lignes;
+}
+
+void augmenter_score(jeu* J){
+  int a;
+  switch(lignes_completes(J)){
+  case 0:
+    a=1;
+    break;
+  case 1:
+    a=100*J->niveau;
+    break;
+  case 2:
+    a=300*J->niveau;
+    break;
+  case 3:
+    a=500*J->niveau;
+    break;
+  default:
+    a=800*J->niveau;
+    break;
+  }
+  J->score+=a;
+  augmenter_niveau(J);
+}
+
+void augmenter_niveau(jeu* J){
+  switch(J->niveau){
+  case 1:
+    if(J->score>=100*J->niveau){
+      J->niveau++;
+    }
+    break;
+  case 2:
+    if(J->score>=100*J->niveau+50*(J->niveau-1)){
+      J->niveau++;
+    }
+  default:
+    if(J->score>=100*J->niveau+50*(J->niveau-1)*(J->niveau-2)){
+      J->niveau++;
+    }
+  }
 }

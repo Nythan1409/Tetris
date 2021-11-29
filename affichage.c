@@ -21,7 +21,7 @@ void loadimage(){
 }
 
 void afficher_fond(){
-  MLV_draw_image(fondbleu, 0,0);
+  MLV_draw_image(fondvert, 0, 0);
 }
 
 void afficher_grille(jeu* J){ /* Nécessite d'avoir fait 8 MLV_load_image*/
@@ -134,9 +134,17 @@ void afficher_next(tetrimino* t){
 }
 
 void afficher_score(jeu* J){
-  char n[5];
+  char n[20];
   sprintf(n, "%d", J->score);
   MLV_draw_image(score, 192, 144);
   MLV_draw_text(205, 154, n, MLV_COLOR_WHITE);
+  MLV_actualise_window();
+}
+
+void afficher_niveau(jeu* J){
+  char n[20];
+  sprintf(n, "%d", J->niveau);
+  MLV_draw_image(score, 192, 192);
+  MLV_draw_text(205, 202, n, MLV_COLOR_WHITE);
   MLV_actualise_window();
 }

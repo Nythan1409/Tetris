@@ -14,14 +14,16 @@ int main(){
     afficher_fond();
     J=generer_jeu();
     afficher_score(&J);
+    afficher_niveau(&J);
     suivant=generer_piece();
     while(1<2){
       copier_piece(&t, &suivant);
       suivant=generer_piece();
       afficher_next(&suivant);
       chute(&t,&J);
-      lignes_completes(&J);
+      augmenter_score(&J);
       afficher_score(&J);
+      afficher_niveau(&J);
     }
     break;
   case 2:

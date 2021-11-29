@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include <math.h>
 #include <MLV/MLV_all.h>
 #define TAILLE_MAX 1024
 
@@ -17,6 +16,7 @@ typedef struct {
 typedef struct {
   int mat[10][20];
   int score;
+  int niveau;
   int vitesse;
 }jeu;
 
@@ -62,3 +62,9 @@ void rotation(tetrimino* t, jeu* J);
 int lignes_completes(jeu* J);
 
 void copier_piece(tetrimino* t, tetrimino* t2);
+
+void augmenter_score(jeu* J);
+
+void augmenter_niveau(jeu* J);
+
+void afficher_niveau(jeu* J);
