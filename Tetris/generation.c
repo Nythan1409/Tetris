@@ -68,7 +68,7 @@ void matricetetrimino(int a, int M[4][4]){
 
 tetrimino generer_piece(){
   tetrimino t;
-  t.posx=0;
+  t.posx=3;
   t.posy=0;
   t.type=rand()%7+1;
   matricetetrimino(t.type, t.mat);

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 #include <MLV/MLV_all.h>
 #define TAILLE_MAX 1024
 
@@ -19,7 +20,7 @@ typedef struct {
   int vitesse;
 }jeu;
 
-MLV_Image *grille, *next, *rouge, *orange, *jaune, *vert, *cyan, *bleu, *violet, *blanc;
+MLV_Image *grille, *next, *rouge, *orange, *jaune, *vert, *cyan, *bleu, *violet, *blanc, *menu1, *menu2, *menu0, *fondrouge, *fondvert, *fondbleu, *score;
 
 int menu();
 
@@ -31,9 +32,15 @@ void matricetetrimino(int a, int M[4][4]); /*Génère la matrice correspondant a
 
 tetrimino generer_piece();
 
+void afficher_fond();
+
 void afficher_grille(jeu* J);
 
 void afficher_piece(tetrimino* t);
+
+void afficher_next(tetrimino* t);
+
+void afficher_score(jeu* J);
 
 void inclure_piece(tetrimino* t, jeu* J);/*Adresse pour pouvoir modifier la matrice. On doit mettre des adresses à chaque fois qu'un jeu est en paramètre dans une fonction pour pouvoir les appeler entre elles*/
 /*Pareil pour les tetriminos en fait*/

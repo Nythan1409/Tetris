@@ -6,29 +6,16 @@ int menu(){/*Renverra 1 pour un joueur, 2 pour 2 joueurs, 0 pour options*/
   char bout[20];
   MLV_Keyboard_button bouton;
   while(selection==-1){
-    MLV_clear_window(MLV_COLOR_BLACK);
     switch(curseur){
     case 1:
-      {
-      MLV_draw_text(100,150,"1 Joueur", MLV_COLOR_YELLOW);
-      MLV_draw_text(100,250,"2 Joueurs", MLV_COLOR_WHITE);
-      MLV_draw_text(100,350,"Options", MLV_COLOR_WHITE);
+      MLV_draw_image(menu1, 0, 0);
       break;
-      }
     case 2:
-      {
-      MLV_draw_text(100,150,"1 Joueur", MLV_COLOR_WHITE);
-      MLV_draw_text(100,250,"2 Joueurs", MLV_COLOR_YELLOW);
-      MLV_draw_text(100,350,"Options", MLV_COLOR_WHITE);
+      MLV_draw_image(menu2, 0, 0);
       break;
-      }
     case 0:
-      {
-      MLV_draw_text(100,150,"1 Joueur", MLV_COLOR_WHITE);
-      MLV_draw_text(100,250,"2 Joueurs", MLV_COLOR_WHITE);
-      MLV_draw_text(100,350,"Options", MLV_COLOR_YELLOW);
+      MLV_draw_image(menu0, 0, 0);
       break;
-      }
     }
     MLV_actualise_window();
     MLV_wait_keyboard(&bouton, NULL, NULL);
