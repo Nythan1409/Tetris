@@ -54,7 +54,7 @@ int est_a_droite(tetrimino* t, jeu* J);
 
 int est_en_bas(tetrimino* t, jeu* J);
 
-void chute(tetrimino* t, jeu* J);
+void chute(tetrimino* t, jeu* J, tetrimino* poche);
 
 void chute_rapide(tetrimino* t, jeu *J);
 
@@ -73,3 +73,7 @@ void augmenter_niveau(jeu* J);
 void afficher_niveau(jeu* J);
 
 void preshot(tetrimino* t, jeu* J);
+
+void stocker(tetrimino* t, tetrimino* poche);
+
+void afficher_poche(tetrimino* t);

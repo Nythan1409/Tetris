@@ -194,3 +194,42 @@ void preshot(tetrimino* t, jeu* J){
   }
   MLV_actualise_window();
 }
+
+void afficher_poche(tetrimino* t){
+    int x,y;
+  int a=2;
+  if(t->type==3 || t->type==5){
+    a=1;/*On sépare les cas pour un plus bel affichage*/
+  }
+  MLV_draw_image(next, 384, 480);
+  for(x=0;x<4;x++){
+    for(y=0;y<4;y++){
+      switch(t->mat[x][y]){
+      case 0:
+	break;
+      case 1:
+	MLV_draw_image(rouge, 384+24*(x+1), 480+24*(y+a));
+	break;
+      case 2:
+	MLV_draw_image(orange, 384+24*(x+1), 480+24*(y+a));
+	break;
+      case 3:
+	MLV_draw_image(jaune, 384+24*(x+1), 480+24*(y+a));
+	break;
+      case 4:
+	MLV_draw_image(vert, 384+24*(x+1), 480+24*(y+a));
+	break;
+      case 5:
+	MLV_draw_image(cyan, 384+24*(x+1), 480+24*(y+a));
+	break;
+      case 6:
+	MLV_draw_image(bleu, 384+24*(x+1), 480+24*(y+a));
+	break;
+      case 7:
+	MLV_draw_image(violet, 384+24*(x+1), 480+24*(y+a));
+	break;
+      }
+    }
+  }
+  MLV_actualise_window();
+}

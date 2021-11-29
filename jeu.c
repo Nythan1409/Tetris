@@ -47,8 +47,9 @@ void inclure_piece(tetrimino* t, jeu* J){
   }
 }
 
-void chute(tetrimino* t, jeu* J){
+void chute(tetrimino* t, jeu* J, tetrimino* poche){
   int bouton;
+  int droitstock=1;
   afficher_grille(J);
   preshot(t,J);
   afficher_piece(t);
@@ -80,6 +81,12 @@ void chute(tetrimino* t, jeu* J){
 	break;
       case 'a':
 	rotation_g(t, J);
+	break;
+      case 'p':
+	if(droitstock==1){
+	  stocker(t, poche);
+	  droitstock=0;
+	}
 	break;
       }
       afficher_grille(J);
@@ -229,4 +236,14 @@ void augmenter_niveau(jeu* J){
     J->niveau++;
     J->palier=50*(J->niveau)*(J->niveau+1);
   }
+}
+
+void stocker(tetrimino* t, tetrimino* poche){
+  tetrimino transition;
+  t->posx=3;
+  t->posy=0;
+  copier_piece(&transition, poche);
+  copier_piece(poche, t);
+  copier_piece(t, &transition);
+  afficher_poche(poche);
 }

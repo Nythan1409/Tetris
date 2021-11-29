@@ -5,7 +5,7 @@
 
 int main(){
   jeu J;
-  tetrimino t, suivant;
+  tetrimino t, suivant, poche;
   srand(time(NULL));
   MLV_create_window("Tetris", "rectangle", 600, 648);
   loadimage();
@@ -16,11 +16,13 @@ int main(){
     afficher_score(&J);
     afficher_niveau(&J);
     suivant=generer_piece();
+    poche=generer_piece();
     while(1){
       copier_piece(&t, &suivant);
       suivant=generer_piece();
       afficher_next(&suivant);
-      chute(&t,&J);
+      afficher_poche(&poche);
+      chute(&t,&J,&poche);
       augmenter_score(&J);
       afficher_score(&J);
       afficher_niveau(&J);
