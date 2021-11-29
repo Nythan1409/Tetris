@@ -7,7 +7,7 @@ int main(){
   jeu J;
   tetrimino t, suivant;
   srand(time(NULL));
-  MLV_create_window("Tetris", "rectangle", 300, 324);
+  MLV_create_window("Tetris", "rectangle", 600, 648);
   loadimage();
   switch(menu()){
   case 1:

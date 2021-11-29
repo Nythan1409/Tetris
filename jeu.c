@@ -74,7 +74,10 @@ void chute(tetrimino* t, jeu* J){
 	}
 	break;
       case 'z':
-	rotation(t, J);
+	rotation_d(t, J);
+	break;
+      case 'a':
+	rotation_g(t, J);
 	break;
       }
       afficher_grille(J);
@@ -92,15 +95,15 @@ void chute_rapide(tetrimino* t, jeu *J){
   }
 }
 
-void rotation(tetrimino* t, jeu* J){
+void rotation_d(tetrimino* t, jeu* J){
   int x,y;
   int M[4][4];
+  int save[4][4];
   for(x=0;x<4;x++){
     for(y=0;y<4;y++){
       M[x][y]=0;
     }
   }
-  int save[4][4];
   if(t->type==3 || t->type==5){
     for(x=0;x<4;x++){
       for(y=0;y<4;y++){
@@ -112,6 +115,44 @@ void rotation(tetrimino* t, jeu* J){
     for(x=0;x<3;x++){
       for(y=0;y<3;y++){
 	M[x][y]=t->mat[y][2-x];
+      }
+    }
+  }
+  for(x=0;x<4;x++){
+    for(y=0;y<4;y++){
+      save[x][y]=t->mat[x][y];
+      t->mat[x][y]=M[x][y];
+    }
+  }
+  if(position_impossible(t, J)){
+    for(x=0;x<4;x++){
+      for(y=0;y<4;y++){
+	t->mat[x][y]=save[x][y];
+      }
+    }
+  }
+}
+
+void rotation_g(tetrimino* t, jeu* J){
+  int x,y;
+  int M[4][4];
+  int save[4][4];
+  for(x=0;x<4;x++){
+    for(y=0;y<4;y++){
+      M[x][y]=0;
+    }
+  }
+  if(t->type==3 || t->type==5){
+    for(x=0;x<4;x++){
+      for(y=0;y<4;y++){
+	M[x][y]=t->mat[3-y][x];
+      }
+    }
+  }
+  else{
+    for(x=0;x<3;x++){
+      for(y=0;y<3;y++){
+	M[x][y]=t->mat[2-y][x];
       }
     }
   }
@@ -181,19 +222,8 @@ void augmenter_score(jeu* J){
 }
 
 void augmenter_niveau(jeu* J){
-  int a; /*Palier à mettre dans le J*/
-  while(J->score>=a){
+  while(J->score>=J->palier){
     J->niveau++;
-    switch(J->niveau){
-    case 1:
-      a=100*J->niveau;
-      break;
-    case 2:
-      a=100*J->niveau+50*(J->niveau-1);
-      break;
-    default:
-      a=100*J->niveau+50*(J->niveau-1)*(J->niveau-2);
-      break;
-    }
+    J->palier=50*(J->niveau)*(J->niveau+1);
   }
 }

@@ -9,6 +9,7 @@ jeu generer_jeu(){
     }
   }
   J.niveau=1;
+  J.palier=100;
   J.score=0;
   J.vitesse=1;
   return J;
@@ -72,9 +73,6 @@ tetrimino generer_piece(){
   t.type=rand()%7+1;
   t.posx=3;
   t.posy=0;
-  if(t.type==3 || t.type==5){
-    t.posy=-1;
-  }
   matricetetrimino(t.type, t.mat);
   return t;
 }

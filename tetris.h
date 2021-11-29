@@ -17,6 +17,7 @@ typedef struct {
   int mat[10][20];
   int score;
   int niveau;
+  int palier; /*Palier de points pour atteindre le prochain niveau*/
   int vitesse;
 }jeu;
 
@@ -57,7 +58,9 @@ void chute(tetrimino* t, jeu* J);
 
 void chute_rapide(tetrimino* t, jeu *J);
 
-void rotation(tetrimino* t, jeu* J);
+void rotation_d(tetrimino* t, jeu* J);
+
+void rotation_g(tetrimino* t, jeu* J);
 
 int lignes_completes(jeu* J);
 
