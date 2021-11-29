@@ -16,7 +16,7 @@ int main(){
     afficher_score(&J);
     afficher_niveau(&J);
     suivant=generer_piece();
-    while(1<2){
+    while(1){
       copier_piece(&t, &suivant);
       suivant=generer_piece();
       afficher_next(&suivant);

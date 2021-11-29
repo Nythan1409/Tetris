@@ -181,19 +181,19 @@ void augmenter_score(jeu* J){
 }
 
 void augmenter_niveau(jeu* J){
-  switch(J->niveau){
-  case 1:
-    if(J->score>=100*J->niveau){
-      J->niveau++;
-    }
-    break;
-  case 2:
-    if(J->score>=100*J->niveau+50*(J->niveau-1)){
-      J->niveau++;
-    }
-  default:
-    if(J->score>=100*J->niveau+50*(J->niveau-1)*(J->niveau-2)){
-      J->niveau++;
+  int a; /*Palier à mettre dans le J*/
+  while(J->score>=a){
+    J->niveau++;
+    switch(J->niveau){
+    case 1:
+      a=100*J->niveau;
+      break;
+    case 2:
+      a=100*J->niveau+50*(J->niveau-1);
+      break;
+    default:
+      a=100*J->niveau+50*(J->niveau-1)*(J->niveau-2);
+      break;
     }
   }
 }
