@@ -21,7 +21,7 @@ typedef struct {
   int vitesse;
 }jeu;
 
-MLV_Image *grille, *next, *rouge, *orange, *jaune, *vert, *cyan, *bleu, *violet, *blanc, *menu1, *menu2, *menu0, *fondrouge, *fondvert, *fondbleu, *score;
+MLV_Image *grille, *next, *rouge, *orange, *jaune, *vert, *cyan, *bleu, *violet, *blanc, *menu1, *menu2, *menu0, *fondrouge, *fondvert, *fondbleu, *score, *ombrerouge, *ombreorange, *ombrejaune, *ombrevert, *ombrecyan, *ombrebleu, *ombreviolet;
 
 int menu();
 
@@ -64,10 +64,12 @@ void rotation_g(tetrimino* t, jeu* J);
 
 int lignes_completes(jeu* J);
 
-void copier_piece(tetrimino* t, tetrimino* t2);
+void copier_piece(tetrimino* dest, tetrimino* source);
 
 void augmenter_score(jeu* J);
 
 void augmenter_niveau(jeu* J);
 
 void afficher_niveau(jeu* J);
+
+void preshot(tetrimino* t, jeu* J);

@@ -77,14 +77,14 @@ tetrimino generer_piece(){
   return t;
 }
 
-void copier_piece(tetrimino* t, tetrimino* t2){
+void copier_piece(tetrimino* dest, tetrimino* source){
   int x,y;
-  t->posx=t2->posx;
-  t->posy=t2->posy;
-  t->type=t2->type;
+  dest->posx=source->posx;
+  dest->posy=source->posy;
+  dest->type=source->type;
   for(x=0;x<4;x++){
     for(y=0;y<4;y++){
-      t->mat[x][y]=t2->mat[x][y];
+      dest->mat[x][y]=source->mat[x][y];
     }
   }
 }

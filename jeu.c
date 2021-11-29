@@ -50,12 +50,14 @@ void inclure_piece(tetrimino* t, jeu* J){
 void chute(tetrimino* t, jeu* J){
   int bouton;
   afficher_grille(J);
+  preshot(t,J);
   afficher_piece(t);
   while(!est_en_bas(t,J)){
     switch(MLV_wait_keyboard_or_seconds(NULL, NULL, &bouton, 1)){
     case 1:
       t->posy++;
       afficher_grille(J);
+      preshot(t,J);
       afficher_piece(t);
       break;
     case 0:
@@ -81,6 +83,7 @@ void chute(tetrimino* t, jeu* J){
 	break;
       }
       afficher_grille(J);
+      preshot(t,J);
       afficher_piece(t);
       break;
     }

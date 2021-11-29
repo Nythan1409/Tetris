@@ -18,6 +18,13 @@ void loadimage(){
   menu2=MLV_load_image("./Images/bigmenu2.png");
   menu0=MLV_load_image("./Images/bigmenu0.png");
   score=MLV_load_image("./Images/bigscore.png");
+  ombrerouge=MLV_load_image("./Images/bigombrerouge.png");
+  ombreorange=MLV_load_image("./Images/bigombreorange.png");
+  ombrejaune=MLV_load_image("./Images/bigombrejaune.png");
+  ombrevert=MLV_load_image("./Images/bigombrevert.png");
+  ombrecyan=MLV_load_image("./Images/bigombrecyan.png");
+  ombrebleu=MLV_load_image("./Images/bigombrebleu.png");
+  ombreviolet=MLV_load_image("./Images/bigombreviolet.png");
 }
 
 void afficher_fond(){
@@ -146,5 +153,44 @@ void afficher_niveau(jeu* J){
   sprintf(n, "%d", J->niveau);
   MLV_draw_image(score, 384, 384);
   MLV_draw_text(410, 404, n, MLV_COLOR_WHITE);
+  MLV_actualise_window();
+}
+
+void preshot(tetrimino* t, jeu* J){
+  tetrimino ombre;
+  int x,y;
+  copier_piece(&ombre, t);
+  while(!est_en_bas(&ombre, J)){
+    ombre.posy++;
+  }
+  for(x=0;x<4;x++){
+    for(y=0;y<4;y++){
+      switch(t->mat[x][y]){
+      case 0:
+	break;
+      case 1:
+	MLV_draw_image(ombrerouge, 72+24*(ombre.posx+x+1), 72+24*(ombre.posy+y));
+	break;
+      case 2:
+	MLV_draw_image(ombreorange, 72+24*(ombre.posx+x+1), 72+24*(ombre.posy+y));
+	break;
+      case 3:
+	MLV_draw_image(ombrejaune, 72+24*(ombre.posx+x+1), 72+24*(ombre.posy+y));
+	break;
+      case 4:
+	MLV_draw_image(ombrevert, 72+24*(ombre.posx+x+1), 72+24*(ombre.posy+y));
+	break;
+      case 5:
+	MLV_draw_image(ombrecyan, 72+24*(ombre.posx+x+1), 72+24*(ombre.posy+y));
+	break;
+      case 6:
+	MLV_draw_image(ombrebleu, 72+24*(ombre.posx+x+1), 72+24*(ombre.posy+y));
+	break;
+      case 7:
+	MLV_draw_image(ombreviolet, 72+24*(ombre.posx+x+1), 72+24*(ombre.posy+y));
+	break;
+      }
+    }
+  }
   MLV_actualise_window();
 }
