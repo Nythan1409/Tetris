@@ -11,35 +11,39 @@ int main(){
   srand(time(NULL));
   MLV_create_window("Tetris", "rectangle", 600, 648);
   loadimage();
-  switch(menu()){
-  case 1:
-    afficher_fond();
-    J=generer_jeu();
-    afficher_score(&J);
-    afficher_niveau(&J);
-    suivant=generer_piece();
-    poche=generer_piece();
-    while(fini==0){
-      copier_piece(&t, &suivant);
-      suivant=generer_piece();
-      afficher_next(&suivant);
-      afficher_poche(&poche);
-      chute(&t,&J,&poche);
-      augmenter_score(&J);
+  while(1){
+    switch(menu()){
+    case 1:
+      afficher_fond();
+      J=generer_jeu();
       afficher_score(&J);
       afficher_niveau(&J);
-      fini=fin_partie(J);
+      suivant=generer_piece();
+      poche=generer_piece();
+      while(fini==0){
+	copier_piece(&t, &suivant);
+	suivant=generer_piece();
+	afficher_next(&suivant);
+	afficher_poche(&poche);
+	chute(&t,&J,&poche);
+	augmenter_score(&J);
+	afficher_score(&J);
+	afficher_niveau(&J);
+	fini=fin_partie(J);
+      }
+      scores=fopen("./Scores", "a+");
+      enregistrer_score(J, scores);
+      fclose(scores);
+      break;
+    case 2:
+      scores=fopen("./Scores", "r+");
+      top_10(scores);
+      fclose(scores);
+      MLV_wait_seconds(5);
+      break;
+    case 0:
+      exit(EXIT_SUCCESS);
+      break;
     }
-    scores=fopen("./Scores", "a+");
-    enregistrer_score(J, scores);
-    fclose(scores);
-    break;
-  case 2:
-    exit(EXIT_SUCCESS);
-    break;
-  case 0:
-    exit(EXIT_SUCCESS);
-    break;
   }
-  exit(EXIT_SUCCESS);
 }

@@ -90,3 +90,10 @@ void nouvelle_image(int tick, tetrimino* t, jeu* J);
 tetrimino piece_vide();
 
 /*void rst_mov_tick(jeu* J,time_t tick);*/
+
+void top_10(FILE* fichier);
+
+int fin_partie(jeu J);
+
+void enregistrer_score(jeu J, FILE* fichier);
+
