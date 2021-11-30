@@ -50,7 +50,8 @@ void inclure_piece(tetrimino* t, jeu* J){
 void chute(tetrimino* t, jeu* J, tetrimino* poche){
   int bouton;
   int droitstock=1;
-  int tick;
+  int tick, timer;
+  int chuterapide=0, pieceposee=0;
   MLV_Event event;
   MLV_Keyboard_button sym;
   MLV_Keyboard_modifier mod;
@@ -58,24 +59,16 @@ void chute(tetrimino* t, jeu* J, tetrimino* poche){
   afficher_grille(J);
   preshot(t,J);
   afficher_piece(t);
-  while(!est_en_bas(t,J)){
-    while(1){
+  tick=MLV_get_time();
+  while(!pieceposee){
+    do{
       tick=MLV_get_time();
-      if (tick%(1000/30)==0){
-	afficher_grille(J);
-	preshot(t,J);
-	afficher_piece(t);
-      }
+      nouvelle_image(tick, t, J);
       event=MLV_get_event(&sym, &mod, &bouton, NULL, NULL, NULL, NULL, NULL, &state);
-      if (test_tick(J, tick)){
-	new_tick(J,tick);
-	t->posy++;
-	break;
-      }
       if (event== MLV_KEY){
 	if (state==MLV_PRESSED){
 	  if (sym==MLV_KEYBOARD_s){
-	    chute_rapide(t, J);
+	    chuterapide=chute_rapide(t, J);
 	    break;
 	  }
 	  if (sym==MLV_KEYBOARD_q){
@@ -102,16 +95,34 @@ void chute(tetrimino* t, jeu* J, tetrimino* poche){
 	  }
 	}
       }
+    } while((!test_tick(J, tick)));
+    if (chuterapide){
+      new_tick(J, tick);
+      chuterapide=0;
+      inclure_piece(t, J);
+      break;
     }
     bouton=0;
+    if (est_en_bas(t, J)){
+      if (tick-timer==J->timeallowed) {
+	inclure_piece(t, J);
+	pieceposee=1;
+      }
+      else{
+	timer=tick;
+      }
+    }
+    else{
+      t->posy++;
+    }
+    new_tick(J,tick);
   }
-  inclure_piece(t, J);
 }
-
-void chute_rapide(tetrimino* t, jeu *J){
+int chute_rapide(tetrimino* t, jeu *J){
   while(!est_en_bas(t, J)){
     t->posy++;
   }
+  return 1;
 }
 
 void rotation_d(tetrimino* t, jeu* J){
@@ -271,6 +282,7 @@ void new_tick(jeu* J, int tick){
   J->timeallowed=1000/J->vitesse;
   J->lasttick=tick;
 }
+
 
 /*void rst_mov_tick(jeu* J,time_t tick){
   if (difftime(J->lasttick, tick)<((J->timeallowed)/(J->vitesse*2))){

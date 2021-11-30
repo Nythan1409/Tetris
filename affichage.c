@@ -233,3 +233,11 @@ void afficher_poche(tetrimino* t){
   }
   MLV_actualise_window();
 }
+
+void nouvelle_image(int tick, tetrimino* t, jeu* J){
+  if (tick%(1000/30)==0){
+    afficher_grille(J);
+    preshot(t,J);
+    afficher_piece(t);
+  }
+}

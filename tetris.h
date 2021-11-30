@@ -58,7 +58,7 @@ int est_en_bas(tetrimino* t, jeu* J);
 
 void chute(tetrimino* t, jeu* J, tetrimino* poche);
 
-void chute_rapide(tetrimino* t, jeu *J);
+int chute_rapide(tetrimino* t, jeu *J);
 
 void rotation_d(tetrimino* t, jeu* J);
 
@@ -83,5 +83,7 @@ void afficher_poche(tetrimino* t);
 void new_tick(jeu* J, int tick);
 
 int test_tick(jeu* J, int tick);
+
+void nouvelle_image(int tick, tetrimino* t, jeu* J);
 
 /*void rst_mov_tick(jeu* J,time_t tick);*/
