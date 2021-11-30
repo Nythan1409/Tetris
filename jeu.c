@@ -310,21 +310,27 @@ void enregistrer_score(jeu J, FILE* fichier){
   MLV_clear_window(MLV_COLOR_BLACK);
   MLV_draw_text(100, 100, "Entrez votre nom (3 lettres)", MLV_COLOR_WHITE);
   MLV_actualise_window();
-  MLV_wait_keyboard(NULL, NULL, &c1);
-  if(c1>=97){
-    c1-=32;
+  while(c1<65 || (c1>90 && c1<97) || c1>122){
+    MLV_wait_keyboard(NULL, NULL, &c1);
+    if(c1>=97){
+      c1-=32;
+    }
   }
   MLV_draw_text(50, 150, &c1, MLV_COLOR_WHITE);
   MLV_actualise_window();
-  MLV_wait_keyboard(NULL, NULL, &c2);
-  if(c2>=97){
-    c2-=32;
+  while(c2<65 || (c2>90 && c2<97) || c2>122){
+    MLV_wait_keyboard(NULL, NULL, &c2);
+    if(c2>=97){
+      c2-=32;
+    }
   }
   MLV_draw_text(100, 150, &c2, MLV_COLOR_WHITE);
   MLV_actualise_window();
-  MLV_wait_keyboard(NULL, NULL, &c3);
-  if(c3>=97){
-    c3-=32;
+  while(c3<65 || (c3>90 && c3<97) || c3>122){
+    MLV_wait_keyboard(NULL, NULL, &c3);
+    if(c3>=97){
+      c3-=32;
+    }
   }
   MLV_draw_text(150, 150, &c3, MLV_COLOR_WHITE);
   MLV_actualise_window();
