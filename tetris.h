@@ -21,6 +21,7 @@ typedef struct {
   double vitesse;
   int lasttick;
   int timeallowed;
+  int droitstock;
 }jeu;
 
 MLV_Image *grille, *next, *rouge, *orange, *jaune, *vert, *cyan, *bleu, *violet, *blanc, *menu1, *menu2, *menu0, *fondrouge, *fondvert, *fondbleu, *score, *ombrerouge, *ombreorange, *ombrejaune, *ombrevert, *ombrecyan, *ombrebleu, *ombreviolet;
@@ -85,5 +86,7 @@ void new_tick(jeu* J, int tick);
 int test_tick(jeu* J, int tick);
 
 void nouvelle_image(int tick, tetrimino* t, jeu* J);
+
+tetrimino piece_vide();
 
 /*void rst_mov_tick(jeu* J,time_t tick);*/

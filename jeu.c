@@ -51,7 +51,7 @@ void chute(tetrimino* t, jeu* J, tetrimino* poche){
   int bouton;
   int droitstock=1;
   int tick, timer;
-  int chuterapide=0, pieceposee=0;
+  int chuterapide=0, pieceposee=0, piecevide=0;
   MLV_Event event;
   MLV_Keyboard_button sym;
   MLV_Keyboard_modifier mod;
@@ -91,14 +91,19 @@ void chute(tetrimino* t, jeu* J, tetrimino* poche){
 	    if(droitstock==1){
 	      stocker(t, poche);
 	      droitstock=0;
+	      if (t->type==8){
+		piecevide=1;
+		break;
+	      }
 	    }
 	  }
 	}
       }
     } while((!test_tick(J, tick)));
-    if (chuterapide){
+    if (chuterapide||piecevide){
       new_tick(J, tick);
       chuterapide=0;
+      piecevide=0;
       inclure_piece(t, J);
       break;
     }

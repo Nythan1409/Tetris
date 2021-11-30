@@ -9,6 +9,7 @@ jeu generer_jeu(){
     }
   }
   J.niveau=1;
+  J.droitstock=1;
   J.palier=100;
   J.score=0;
   J.vitesse=1;
@@ -67,6 +68,8 @@ void matricetetrimino(int a, int M[4][4]){
       M[x][1]=a;
     }
     break;
+  case 8:
+    ;
   }
 }
 
@@ -74,6 +77,15 @@ tetrimino generer_piece(){
   tetrimino t;
   t.type=rand()%7+1;
   t.posx=3;
+  t.posy=0;
+  matricetetrimino(t.type, t.mat);
+  return t;
+}
+
+tetrimino piece_vide(){
+  tetrimino t;
+  t.type=8; /*Le type 8 est réservé à une pièce vide*/
+  t.posx=0;
   t.posy=0;
   matricetetrimino(t.type, t.mat);
   return t;
