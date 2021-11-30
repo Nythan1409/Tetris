@@ -48,38 +48,51 @@ void inclure_piece(tetrimino* t, jeu* J){
 }
 
 void chute(tetrimino* t, jeu* J){
-  int bouton;
+  int bouton=0;
+  time_t tick;
+  int frame=0;
+  MLV_Event event;
+  MLV_Keyboard_button sym;
+  MLV_Keyboard_modifier mod;
+  MLV_Button_state state;
   afficher_grille(J);
   afficher_piece(t);
   while(!est_en_bas(t,J)){
-    switch(MLV_wait_keyboard_or_seconds(NULL, NULL, &bouton, 1)){
-    case 1:
-      t->posy++;
-      afficher_grille(J);
-      afficher_piece(t);
-      break;
-    case 0:
-      switch(bouton){
-      case 's':
-        chute_rapide(t, J);
-	break;
-      case 'q':
-	if(!est_a_gauche(t, J)){
-	  t->posx--;
-	}
-	break;
-      case 'd':
-	if(!est_a_droite(t, J)){
-	  t->posx++;
-	}
-	break;
-      case 'z':
-	rotation(t, J);
+    while(1){
+      tick=time(NULL);
+      frame++;
+      if (frame>=1000000){
+	frame=0;
+	afficher_grille(J);
+	afficher_piece(t);
+      }
+      event=MLV_get_event(&sym, &mod, &bouton, NULL, NULL, NULL, NULL, NULL, &state);
+      if (test_tick(J, tick)){
+	new_tick(J,tick);
+	t->posy++;
 	break;
       }
-      afficher_grille(J);
-      afficher_piece(t);
-      break;
+      if (event== MLV_KEY){
+	if (state==MLV_PRESSED){
+	  if (sym==MLV_KEYBOARD_s){
+	    chute_rapide(t, J);
+	    break;
+	  }
+	  if (sym==MLV_KEYBOARD_q){
+	    if(!est_a_gauche(t, J)){
+	      t->posx--;
+	    }
+	  }
+	  if (sym==MLV_KEYBOARD_d){
+	    if(!est_a_droite(t, J)){
+	      t->posx++;
+	    }
+	  }
+	  if (sym==MLV_KEYBOARD_z){
+	    rotation(t, J);
+	  }
+	}
+      }
     }
     bouton=0;
   }
@@ -87,9 +100,12 @@ void chute(tetrimino* t, jeu* J){
 }
 
 void chute_rapide(tetrimino* t, jeu *J){
+  time_t tick;
+  tick=time(NULL);
   while(!est_en_bas(t, J)){
     t->posy++;
   }
+  new_tick(J, tick);
 }
 
 void rotation(tetrimino* t, jeu* J){
@@ -156,3 +172,23 @@ int lignes_completes(jeu* J){
   afficher_grille(J);
   return lignes;
 }
+
+int test_tick(jeu* J, time_t tick){ 
+  double diff;
+  diff=difftime(tick, J->lasttick);
+  if (diff>=(J->timeallowed/J->vitesse)){
+    return 1;
+  }
+  return 0;
+}
+
+void new_tick(jeu* J, time_t tick){
+  J->timeallowed=1.0;
+  J->lasttick=tick;
+}
+
+/*void rst_mov_tick(jeu* J,time_t tick){
+  if (difftime(J->lasttick, tick)<((J->timeallowed)/(J->vitesse*2))){
+    J->timeallowed+=0.1;
+  }
+  }*/

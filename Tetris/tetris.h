@@ -18,6 +18,8 @@ typedef struct {
   int mat[10][20];
   int score;
   int vitesse;
+  time_t lasttick;
+  double timeallowed;
 }jeu;
 
 MLV_Image *grille, *next, *rouge, *orange, *jaune, *vert, *cyan, *bleu, *violet, *blanc, *menu1, *menu2, *menu0, *fondrouge, *fondvert, *fondbleu, *score;
@@ -62,3 +64,9 @@ void rotation(tetrimino* t, jeu* J);
 int lignes_completes(jeu* J);
 
 void copier_piece(tetrimino* t, tetrimino* t2);
+
+void new_tick(jeu* J, time_t tick);
+
+int test_tick(jeu* J, time_t tick);
+
+/*void rst_mov_tick(jeu* J,time_t tick);*/

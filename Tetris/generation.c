@@ -10,6 +10,8 @@ jeu generer_jeu(){
   }
   J.score=0;
   J.vitesse=1;
+  J.timeallowed=1.0;
+  J.lasttick=time(NULL);
   return J;
 }
 
