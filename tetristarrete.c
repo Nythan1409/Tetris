@@ -19,7 +19,7 @@ int main(){
       afficher_score(&J);
       afficher_niveau(&J);
       suivant=generer_piece();
-      poche=generer_piece();
+      poche=piece_vide();
       while(fini==0){
 	copier_piece(&t, &suivant);
 	suivant=generer_piece();
