@@ -8,6 +8,8 @@ jeu generer_jeu(){
       J.mat[x][y]=0;
     }
   }
+  J.niveau=1;
+  J.palier=100;
   J.score=0;
   J.vitesse=1;
   J.timeallowed=1.0;
@@ -70,21 +72,21 @@ void matricetetrimino(int a, int M[4][4]){
 
 tetrimino generer_piece(){
   tetrimino t;
+  t.type=rand()%7+1;
   t.posx=3;
   t.posy=0;
-  t.type=rand()%7+1;
   matricetetrimino(t.type, t.mat);
   return t;
 }
 
-void copier_piece(tetrimino* t, tetrimino* t2){
+void copier_piece(tetrimino* dest, tetrimino* source){
   int x,y;
-  t->posx=t2->posx;
-  t->posy=t2->posy;
-  t->type=t2->type;
+  dest->posx=source->posx;
+  dest->posy=source->posy;
+  dest->type=source->type;
   for(x=0;x<4;x++){
     for(y=0;y<4;y++){
-      t->mat[x][y]=t2->mat[x][y];
+      dest->mat[x][y]=source->mat[x][y];
     }
   }
 }
