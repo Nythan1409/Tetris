@@ -294,3 +294,39 @@ void new_tick(jeu* J, int tick){
     J->timeallowed+=0.1;
   }
   }*/
+
+int fin_partie(jeu J){
+  int x;
+  for(x=0;x<10;x++){
+    if(J.mat[x][0]!=0){
+      return 1;
+    }
+  }
+  return 0;
+}
+
+void enregistrer_score(jeu J, FILE* fichier){
+  int c1, c2, c3;
+  MLV_clear_window(MLV_COLOR_BLACK);
+  MLV_draw_text(100, 100, "Entrez votre nom (3 lettres)", MLV_COLOR_WHITE);
+  MLV_actualise_window();
+  MLV_wait_keyboard(NULL, NULL, &c1);
+  if(c1>=97){
+    c1-=32;
+  }
+  MLV_draw_text(50, 150, &c1, MLV_COLOR_WHITE);
+  MLV_actualise_window();
+  MLV_wait_keyboard(NULL, NULL, &c2);
+  if(c2>=97){
+    c2-=32;
+  }
+  MLV_draw_text(100, 150, &c2, MLV_COLOR_WHITE);
+  MLV_actualise_window();
+  MLV_wait_keyboard(NULL, NULL, &c3);
+  if(c3>=97){
+    c3-=32;
+  }
+  MLV_draw_text(150, 150, &c3, MLV_COLOR_WHITE);
+  MLV_actualise_window();
+  fprintf(fichier, "%c%c%c %d\n", c1, c2, c3, J.score);
+}
