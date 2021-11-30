@@ -6,6 +6,8 @@
 int main(){
   jeu J;
   tetrimino t, suivant, poche;
+  int fini=0;
+  FILE* scores;
   srand(time(NULL));
   MLV_create_window("Tetris", "rectangle", 600, 648);
   loadimage();
@@ -16,8 +18,8 @@ int main(){
     afficher_score(&J);
     afficher_niveau(&J);
     suivant=generer_piece();
-    poche=piece_vide();
-    while(1){
+    poche=generer_piece();
+    while(fini==0){
       copier_piece(&t, &suivant);
       suivant=generer_piece();
       afficher_next(&suivant);
@@ -26,7 +28,11 @@ int main(){
       augmenter_score(&J);
       afficher_score(&J);
       afficher_niveau(&J);
+      fini=fin_partie(J);
     }
+    scores=fopen("./Scores", "a+");
+    enregistrer_score(J, scores);
+    fclose(scores);
     break;
   case 2:
     exit(EXIT_SUCCESS);
