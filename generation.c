@@ -12,8 +12,8 @@ jeu generer_jeu(){
   J.palier=100;
   J.score=0;
   J.vitesse=1;
-  J.timeallowed=1.0;
-  J.lasttick=time(NULL);
+  J.timeallowed=1000;
+  J.lasttick=MLV_get_time();
   return J;
 }
 

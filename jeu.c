@@ -50,8 +50,7 @@ void inclure_piece(tetrimino* t, jeu* J){
 void chute(tetrimino* t, jeu* J, tetrimino* poche){
   int bouton;
   int droitstock=1;
-  time_t tick;
-  int tick_processeur=0;
+  int tick;
   MLV_Event event;
   MLV_Keyboard_button sym;
   MLV_Keyboard_modifier mod;
@@ -61,10 +60,8 @@ void chute(tetrimino* t, jeu* J, tetrimino* poche){
   afficher_piece(t);
   while(!est_en_bas(t,J)){
     while(1){
-      tick=time(NULL);
-      tick_processeur++;
-      if (tick_processeur>=1000000){ /*Comme le processeur fait en moyenne 40M d'opérations par minutes, on se sert de ça pour faire afficher environ 40 images par secondes*/
-	tick_processeur=0;
+      tick=MLV_get_time();
+      if (tick%(1000/30)==0){
 	afficher_grille(J);
 	preshot(t,J);
 	afficher_piece(t);
@@ -91,13 +88,13 @@ void chute(tetrimino* t, jeu* J, tetrimino* poche){
 	      t->posx++;
 	    }
 	  }
-	  if (sym==MLV_KEYBOARD_z){
+	  if (sym==MLV_KEYBOARD_e){
 	    rotation_d(t, J);
 	  }
 	  if (sym==MLV_KEYBOARD_a){
 	    rotation_g(t, J);
 	  }
-	  if (sym==MLV_KEYBOARD_p){
+	  if (sym==MLV_KEYBOARD_z){
 	    if(droitstock==1){
 	      stocker(t, poche);
 	      droitstock=0;
@@ -246,6 +243,7 @@ void augmenter_score(jeu* J){
 void augmenter_niveau(jeu* J){
   while(J->score>=J->palier){
     J->niveau++;
+    J->vitesse*=1.2;
     J->palier=50*(J->niveau)*(J->niveau+1);
   }
 }
@@ -260,17 +258,17 @@ void stocker(tetrimino* t, tetrimino* poche){
   afficher_poche(poche);
 }
 
-int test_tick(jeu* J, time_t tick){ 
-  double diff;
-  diff=difftime(tick, J->lasttick);
-  if (diff>=(J->timeallowed/J->vitesse)){
+int test_tick(jeu* J, int tick){ 
+  int diff;
+  diff=tick-(J->lasttick);
+  if (diff>=J->timeallowed){
     return 1;
   }
   return 0;
 }
 
-void new_tick(jeu* J, time_t tick){
-  J->timeallowed=1.0;
+void new_tick(jeu* J, int tick){
+  J->timeallowed=1000/J->vitesse;
   J->lasttick=tick;
 }
 

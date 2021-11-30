@@ -18,9 +18,9 @@ typedef struct {
   int score;
   int niveau;
   int palier; /*Palier de points pour atteindre le prochain niveau*/
-  int vitesse;
-  time_t lasttick;
-  double timeallowed;
+  double vitesse;
+  int lasttick;
+  int timeallowed;
 }jeu;
 
 MLV_Image *grille, *next, *rouge, *orange, *jaune, *vert, *cyan, *bleu, *violet, *blanc, *menu1, *menu2, *menu0, *fondrouge, *fondvert, *fondbleu, *score, *ombrerouge, *ombreorange, *ombrejaune, *ombrevert, *ombrecyan, *ombrebleu, *ombreviolet;
@@ -80,8 +80,8 @@ void stocker(tetrimino* t, tetrimino* poche);
 
 void afficher_poche(tetrimino* t);
 
-void new_tick(jeu* J, time_t tick);
+void new_tick(jeu* J, int tick);
 
-int test_tick(jeu* J, time_t tick);
+int test_tick(jeu* J, int tick);
 
 /*void rst_mov_tick(jeu* J,time_t tick);*/
