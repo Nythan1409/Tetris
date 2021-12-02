@@ -34,6 +34,7 @@ int main(){
       scores=fopen("./Scores", "a+");
       enregistrer_score(J, scores);
       fclose(scores);
+      fini=0;
       break;
     case 2:
       scores=fopen("./Scores", "r+");
