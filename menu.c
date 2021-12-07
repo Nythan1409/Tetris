@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-int menu(){/*Renverra 1 pour un joueur, 2 pour 2 joueurs, 0 pour options*/
+int menu(){/*Renverra 1 pour un joueur, 2 pour Scores, 0 pour options*/
   int selection=-1;
   int curseur=1;
   char bout[20];
