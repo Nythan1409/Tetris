@@ -245,7 +245,7 @@ void afficher_poche(tetrimino* t){
 }
 
 void nouvelle_image(int tick, tetrimino* t, jeu* J){
-  if (tick%(1000/30)==0){
+  if (tick%(1000/25)==0){
     afficher_grille(J);
     preshot(t,J);
     afficher_piece(t);
