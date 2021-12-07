@@ -97,3 +97,4 @@ int fin_partie(jeu J);
 
 void enregistrer_score(jeu J, FILE* fichier);
 
+int options();

@@ -27,8 +27,18 @@ void loadimage(){
   ombreviolet=MLV_load_image("./Images/bigombreviolet.png");
 }
 
-void afficher_fond(){
-  MLV_draw_image(fondvert, 0, 0);
+void afficher_fond(int fond){
+  switch(fond){
+  case 1:
+    MLV_draw_image(fondbleu, 0, 0);
+    break;
+  case 2:
+    MLV_draw_image(fondrouge, 0, 0);
+    break;
+  case 0:
+    MLV_draw_image(fondvert, 0, 0);
+    break;
+  }
 }
 
 void afficher_grille(jeu* J){ /* Nécessite d'avoir fait 8 MLV_load_image*/
