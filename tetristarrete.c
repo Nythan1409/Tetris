@@ -43,8 +43,11 @@ int main(){
       fclose(scores);
       MLV_wait_seconds(5);
       break;
-    case 0:
+    case 3:
       fond=options();
+      break;
+    case 0:
+      exit(EXIT_SUCCESS);
       break;
     }
   }
