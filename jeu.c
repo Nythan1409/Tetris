@@ -47,8 +47,11 @@ void inclure_piece(tetrimino* t, jeu* J){
   }
 }
 
-void chute(tetrimino* t, jeu* J, tetrimino* poche){
-  int bouton;
+void chute(tetrimino* t){
+  t->posy++;
+}
+
+/*void chute2(tetrimino* t, jeu* J, tetrimino* poche){
   int droitstock=1;
   int tick, timer;
   int chuterapide=0, pieceposee=0, piecevide=0;
@@ -64,7 +67,7 @@ void chute(tetrimino* t, jeu* J, tetrimino* poche){
     do{
       tick=MLV_get_time();
       nouvelle_image(tick, t, J);
-      event=MLV_get_event(&sym, &mod, &bouton, NULL, NULL, NULL, NULL, NULL, &state);
+      event=MLV_get_event(&sym, &mod, NULL, NULL, NULL, NULL, NULL, NULL, &state);
       if (event== MLV_KEY){
 	if (state==MLV_PRESSED){
 	  if (sym==MLV_KEYBOARD_s){
@@ -123,6 +126,8 @@ void chute(tetrimino* t, jeu* J, tetrimino* poche){
     new_tick(J,tick);
   }
 }
+*/
+
 int chute_rapide(tetrimino* t, jeu *J){
   while(!est_en_bas(t, J)){
     t->posy++;
@@ -259,7 +264,7 @@ void augmenter_score(jeu* J){
 void augmenter_niveau(jeu* J){
   while(J->score>=J->palier){
     J->niveau++;
-    J->vitesse*=1.2;
+    J->vitesse*=1.1;
     J->palier=50*(J->niveau)*(J->niveau+1);
   }
 }
@@ -288,12 +293,6 @@ void new_tick(jeu* J, int tick){
   J->lasttick=tick;
 }
 
-
-/*void rst_mov_tick(jeu* J,time_t tick){
-  if (difftime(J->lasttick, tick)<((J->timeallowed)/(J->vitesse*2))){
-    J->timeallowed+=0.1;
-  }
-  }*/
 
 int fin_partie(jeu J){
   int x;
@@ -335,4 +334,82 @@ void enregistrer_score(jeu J, FILE* fichier){
   MLV_draw_text(150, 150, &c3, MLV_COLOR_WHITE);
   MLV_actualise_window();
   fprintf(fichier, "%c%c%c %d\n", c1, c2, c3, J.score);
+}
+
+/*int fin_chute(tetrimino* t, tetrimino* poche, tetrimino* suivant, jeu* J){ Fonction à la fin de la chute d'une pièce qui renvoie si la partie est fini ou non et si elle l'est réinitialise la chute de la pièce
+  int fini;
+  inclure_piece(&t, &J);
+  augmenter_score(&J);
+  afficher_score(&J);
+  afficher_niveau(&J);
+  fini=fin_partie(J);
+  if (!fini){
+    copier_piece(&t, &suivant);
+    suivant=generer_piece();
+    afficher_next(&suivant);
+    afficher_poche(&poche);
+  }
+  return fini;
+  }*/
+
+int evenement(tetrimino* t, tetrimino* poche, jeu* J, int tick){ /* Fait les évenements durant les ticks, renvoie 1 si la fonction doit continuer, 0 si elle doit s'arrêter */
+  MLV_Event event;
+  MLV_Keyboard_button sym;
+  MLV_Keyboard_modifier mod;
+  MLV_Button_state state;
+  int continuer=1;
+  event=MLV_get_event(&sym, &mod, NULL, NULL, NULL, NULL, NULL, NULL, &state);
+  if (event== MLV_KEY){
+    if (state==MLV_PRESSED){
+      if (!(J->pause)){
+	if (sym==MLV_KEYBOARD_s){
+	  chute_rapide(t, J);
+	  continuer=0;
+	}
+	if (sym==MLV_KEYBOARD_q){
+	  if(!est_a_gauche(t, J)){
+	    t->posx--;
+	  }
+	}
+	if (sym==MLV_KEYBOARD_d){
+	  if(!est_a_droite(t, J)){
+	    t->posx++;
+	  }
+	}
+	if (sym==MLV_KEYBOARD_e){
+	  rotation_d(t, J);
+	}
+	if (sym==MLV_KEYBOARD_a){
+	  rotation_g(t, J);
+	}
+	if (sym==MLV_KEYBOARD_z){
+	  if(J->droitstock){
+	    stocker(t, poche);
+	    J->droitstock=0;
+	    if (t->type==8){
+	      J->piecevide=1;
+	    }
+	  }
+	}
+	if (sym==MLV_KEYBOARD_p){
+	  set_pause(J);
+	}
+      }
+      else {
+	if (sym==MLV_KEYBOARD_p){
+	  resume(J, tick);
+	}
+      }
+    }
+  }
+  return continuer;
+}
+
+void set_pause(jeu* J){
+  J->pause=1; 
+}
+
+void resume(jeu* J, int tick){
+  J->pause=0;
+  new_tick(J, tick);
 }
