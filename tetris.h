@@ -97,10 +97,10 @@ void enregistrer_score(jeu J, FILE* fichier);
 
 void chute(tetrimino* t);
 
-/*int fin_chute(tetrimino* t, tetrimino* poche, tetrimino* suivant, jeu* J);*/
-
 int evenement(tetrimino* t, tetrimino* poche, jeu* J, int tick);
 
 void set_pause(jeu* J);
 
 void resume(jeu* J, int tick);
+
+int options();

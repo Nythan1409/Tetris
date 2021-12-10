@@ -10,13 +10,14 @@ int main(){
   int pieceposee=0;
   FILE* scores;
   int tick, timer=0;
+  int fond=1;
   srand(time(NULL));
   MLV_create_window("Tetris", "rectangle", 600, 648);
   loadimage();
   while(1){
     switch(menu()){
     case 1:
-      afficher_fond();
+      afficher_fond(fond);
       J=generer_jeu();
       afficher_score(&J);
       afficher_niveau(&J);
@@ -93,6 +94,9 @@ int main(){
       top_10(scores);
       fclose(scores);
       MLV_wait_seconds(5);
+      break;
+    case 3:
+      fond=options();
       break;
     case 0:
       exit(EXIT_SUCCESS);

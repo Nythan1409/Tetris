@@ -27,8 +27,18 @@ void loadimage(){
   ombreviolet=MLV_load_image("./Images/bigombreviolet.png");
 }
 
-void afficher_fond(){
-  MLV_draw_image(fondvert, 0, 0);
+void afficher_fond(int fond){
+  switch(fond){
+  case 1:
+    MLV_draw_image(fondbleu, 0, 0);
+    break;
+  case 2:
+    MLV_draw_image(fondrouge, 0, 0);
+    break;
+  case 0:
+    MLV_draw_image(fondvert, 0, 0);
+    break;
+  }
 }
 
 void afficher_grille(jeu* J){ /* Nécessite d'avoir fait 8 MLV_load_image*/
@@ -235,64 +245,9 @@ void afficher_poche(tetrimino* t){
 }
 
 void nouvelle_image(int tick, tetrimino* t, jeu* J){
-  if (tick%(1000/30)==0){
+  if (tick%(1000/25)==0){
     afficher_grille(J);
     preshot(t,J);
     afficher_piece(t);
   }
-}
-
-void top_10(FILE* fichier){
-  char noms[100][3];
-  int scores[100];
-  int i=0;
-  int j;
-  int k;
-  int l;
-  int transition[4];
-  char texte[100];
-  char a,b,c;
-  int d;
-  for(l=0;l<100;l++){
-    scores[l]=0;
-  }
-  MLV_clear_window(MLV_COLOR_BLACK);
-  while(fscanf(fichier, "%c%c%c %d\n", &a, &b, &c, &d)==4 && i<100){
-    noms[i][0]=a;
-    noms[i][1]=b;
-    noms[i][2]=c;
-    scores[i]=d;
-    j=i;
-    while(j!=0 && scores[j]>scores[j-1]){
-      transition[0]=noms[j-1][0];
-      transition[1]=noms[j-1][1];
-      transition[2]=noms[j-1][2];
-      transition[3]=scores[j-1];
-      noms[j-1][0]=noms[j][0];
-      noms[j-1][1]=noms[j][1];
-      noms[j-1][2]=noms[j][2];
-      scores[j-1]=scores[j];
-      noms[j][0]=transition[0];
-      noms[j][1]=transition[1];
-      noms[j][2]=transition[2];
-      scores[j]=transition[3];
-      j--;
-    }
-    i++;
-  }
-  for(k=0;k<10;k++){
-    if(scores[k]==0){
-      sprintf(texte, "%d. Aucun score", k+1);
-      MLV_draw_text(20, 20*(k+1), texte, MLV_COLOR_WHITE);
-    }
-    else{
-      a=noms[k][0];
-      b=noms[k][1];
-      c=noms[k][2];
-      d=scores[k];
-      sprintf(texte, "%d. %c%c%c %d", k+1, a, b, c, d);
-      MLV_draw_text(20, 20*(k+1), texte, MLV_COLOR_WHITE);
-    }
-  }
-  MLV_actualise_window();
 }
