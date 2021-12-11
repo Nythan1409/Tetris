@@ -97,6 +97,7 @@ void top_10(FILE* fichier){
 
 void enregistrer_partie(jeu J, FILE* fichier, tetrimino t, tetrimino s, tetrimino p){
   int i,j;
+  fprintf(fichier, "a"); /*Caractère que le main lira s'il y a un fichier*/
   fprintf(fichier, "%d %d %d %d %d %d %d %lf\n", J.score, J.niveau, J.palier, J.lasttick, J.timeallowed, J.droitstock, J.piecevide, J.vitesse);
   for(j=0;j<20;j++){
     for(i=0; i<10; i++){

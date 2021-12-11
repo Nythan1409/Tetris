@@ -12,7 +12,7 @@ int main(){
   FILE* partie;
   int tick, timer=0;
   int fond=1;
-  int reprendre;
+  int reprendre=0;
   srand(time(NULL));
   MLV_create_window("Tetris", "rectangle", 600, 648);
   loadimage();
@@ -34,6 +34,7 @@ int main(){
 	break;
       case 1:
 	charger_partie(&J, partie, &t, &suivant, &poche);
+	new_tick(&J, tick);
 	break;
       }
       fclose(partie);
