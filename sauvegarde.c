@@ -94,3 +94,40 @@ void top_10(FILE* fichier){
   }
   MLV_actualise_window();
 }
+
+void enregistrer_partie(jeu J, FILE* fichier, tetrimino t, tetrimino s, tetrimino p){
+  int i,j;
+  fprintf(fichier, "%d %d %d %d %d %d %d %lf\n", J.score, J.niveau, J.palier, J.lasttick, J.timeallowed, J.droitstock, J.piecevide, J.vitesse);
+  for(j=0;j<20;j++){
+    for(i=0; i<10; i++){
+      fprintf(fichier, "%d\n", J.mat[i][j]);
+    }
+  }
+  fprintf(fichier, "%d %d %d %d %d\n", t.type, t.posx, t.posy, s.type, p.type);
+}
+
+void charger_partie(jeu* J, FILE* fichier, tetrimino* t, tetrimino* s, tetrimino* p){
+  int i,j;
+  fscanf(fichier, "%d %d %d %d %d %d %d %lf\n", &(J->score), &(J->niveau), &(J->palier), &(J->lasttick), &(J->timeallowed), &(J->droitstock), &(J->piecevide), &(J->vitesse));
+  J->pause=0;
+  for(j=0;j<20;j++){
+    for(i=0; i<10; i++){
+      fscanf(fichier, "%d\n", &(J->mat[i][j]));
+    }
+  }
+  fscanf(fichier, "%d %d %d %d %d\n", &(t->type), &(t->posx), &(t->posy), &(s->type), &(p->type));
+  matricetetrimino(t->type, t->mat);
+  matricetetrimino(s->type, s->mat);
+  s->posx=3;
+  s->posy=0;
+  matricetetrimino(p->type, p->mat);
+  p->posx=3;
+  p->posy=0;
+}
+
+int sauvegarde_existe(FILE* fichier){
+  if(fgetc(fichier)==EOF){
+    return 0;
+  }
+  return 1;
+}

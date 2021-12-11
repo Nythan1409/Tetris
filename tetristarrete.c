@@ -6,25 +6,40 @@
 int main(){
   jeu J;
   tetrimino t, suivant, poche;
-  int fini=0;
+  int fini;
   int pieceposee=0;
   FILE* scores;
+  FILE* partie;
   int tick, timer=0;
   int fond=1;
+  int reprendre;
   srand(time(NULL));
   MLV_create_window("Tetris", "rectangle", 600, 648);
   loadimage();
   while(1){
     switch(menu()){
     case 1:
+      partie=fopen("./Partie", "r+");
+      if(sauvegarde_existe(partie)){
+	reprendre=sous_menu_jouer();
+      }
+      fini=0;
+      switch(reprendre){
+      case 0:
+	J=generer_jeu();
+	suivant=generer_piece();
+	poche=piece_vide();
+	copier_piece(&t, &suivant);
+	suivant=generer_piece();
+	break;
+      case 1:
+	charger_partie(&J, partie, &t, &suivant, &poche);
+	break;
+      }
+      fclose(partie);
       afficher_fond(fond);
-      J=generer_jeu();
       afficher_score(&J);
       afficher_niveau(&J);
-      suivant=generer_piece();
-      poche=piece_vide();
-      copier_piece(&t, &suivant);
-      suivant=generer_piece();
       afficher_next(&suivant);
       afficher_poche(&poche);
       while(fini==0){
@@ -80,14 +95,33 @@ int main(){
 	  new_tick(&J,tick);
 	}
 	while (J.pause){
-	  MLV_draw_filled_rectangle(0,0,500,500, MLV_COLOR_BLACK);
-	  MLV_actualise_window();
+	  switch(menu_pause()){
+	  case 1:
+	    ;
+	    break;
+	  case 2:
+	    partie=fopen("./Partie", "w");
+	    enregistrer_partie(J, partie, t, suivant, poche);
+	    fclose(partie);
+	    fini=2;/*Finir la partie sans enregistrer le score*/
+	    resume(&J, tick);
+	    break;
+	  case 0:
+	    afficher_fond(fond);
+	    afficher_score(&J);
+	    afficher_niveau(&J);
+	    afficher_next(&suivant);
+	    afficher_poche(&poche);
+	    resume(&J, tick);
+	    break;
+	  }
 	}
       }
-      scores=fopen("./Scores", "a+");
-      enregistrer_score(J, scores);
-      fclose(scores);
-      fini=0;
+      if(fini==1){
+	scores=fopen("./Scores", "a+");
+	enregistrer_score(J, scores);
+	fclose(scores);
+      }
       break;
     case 2:
       scores=fopen("./Scores", "r+");

@@ -104,3 +104,13 @@ void set_pause(jeu* J);
 void resume(jeu* J, int tick);
 
 int options();
+
+int menu_pause();
+
+void enregistrer_partie(jeu J, FILE* fichier, tetrimino t, tetrimino s, tetrimino p);
+
+void charger_partie(jeu* J, FILE* fichier, tetrimino* t, tetrimino* s, tetrimino* p);
+
+int sauvegarde_existe(FILE* fichier);
+
+int sous_menu_jouer();

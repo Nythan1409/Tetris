@@ -315,27 +315,27 @@ int evenement(tetrimino* t, tetrimino* poche, jeu* J, int tick){ /* Fait les év
   if (event== MLV_KEY){
     if (state==MLV_PRESSED){
       if (!(J->pause)){
-	if (sym==MLV_KEYBOARD_s){
+	if (sym==MLV_KEYBOARD_DOWN){
 	  chute_rapide(t, J);
 	  continuer=0;
 	}
-	if (sym==MLV_KEYBOARD_q){
+	if (sym==MLV_KEYBOARD_LEFT){
 	  if(!est_a_gauche(t, J)){
 	    t->posx--;
 	  }
 	}
-	if (sym==MLV_KEYBOARD_d){
+	if (sym==MLV_KEYBOARD_RIGHT){
 	  if(!est_a_droite(t, J)){
 	    t->posx++;
 	  }
 	}
-	if (sym==MLV_KEYBOARD_e){
+	if (sym==MLV_KEYBOARD_d){
 	  rotation_d(t, J);
 	}
-	if (sym==MLV_KEYBOARD_a){
+	if (sym==MLV_KEYBOARD_q){
 	  rotation_g(t, J);
 	}
-	if (sym==MLV_KEYBOARD_z){
+	if (sym==MLV_KEYBOARD_s){
 	  if(J->droitstock){
 	    stocker(t, poche);
 	    J->droitstock=0;
@@ -344,13 +344,8 @@ int evenement(tetrimino* t, tetrimino* poche, jeu* J, int tick){ /* Fait les év
 	    }
 	  }
 	}
-	if (sym==MLV_KEYBOARD_p){
+	if (sym==MLV_KEYBOARD_SPACE){
 	  set_pause(J);
-	}
-      }
-      else {
-	if (sym==MLV_KEYBOARD_p){
-	  resume(J, tick);
 	}
       }
     }
