@@ -1,22 +1,21 @@
 #include "tetris.h"
 
-int options(){
+int options(int fond){
   int selection=-1;
-  int curseur=1;
+  int curseur=fond;
   char bout[20];
   MLV_Keyboard_button bouton;
+  afficher_fond(fond);
   while(selection==-1){
-    MLV_clear_window(MLV_COLOR_BLACK);
-    MLV_draw_text(50, 50, "Couleur du fond :", MLV_COLOR_WHITE);
     switch(curseur){
     case 1:
-      MLV_draw_text(100, 100, "BLEU", MLV_COLOR_BLUE);
+      MLV_draw_image(menuo1, 0, 0);
       break;
     case 2:
-      MLV_draw_text(100, 100, "ROUGE", MLV_COLOR_RED);
+      MLV_draw_image(menuo2, 0, 0);
       break;
     case 0:
-      MLV_draw_text(100, 100, "VERT", MLV_COLOR_GREEN);
+      MLV_draw_image(menuo0, 0, 0);
       break;
     }
     MLV_actualise_window();

@@ -26,7 +26,7 @@ typedef struct {
   int pause;
 }jeu;
 
-MLV_Image *grille, *next, *rouge, *orange, *jaune, *vert, *cyan, *bleu, *violet, *blanc, *menu1, *menu2, *menu0, *fondrouge, *fondvert, *fondbleu, *score, *ombrerouge, *ombreorange, *ombrejaune, *ombrevert, *ombrecyan, *ombrebleu, *ombreviolet;
+MLV_Image *grille, *next, *rouge, *orange, *jaune, *vert, *cyan, *bleu, *violet, *blanc, *menu1, *menu2, *menu3, *menu0, *menuo1, *menuo2, *menuo0, *pause1, *pause2, *pause0, *sousmenu1, *sousmenu0, *fondrouge, *fondvert, *fondbleu, *score, *ombrerouge, *ombreorange, *ombrejaune, *ombrevert, *ombrecyan, *ombrebleu, *ombreviolet;
 
 int menu();
 
@@ -103,7 +103,7 @@ void set_pause(jeu* J);
 
 void resume(jeu* J, int tick);
 
-int options();
+int options(int fond);
 
 int menu_pause();
 

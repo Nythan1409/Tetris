@@ -16,7 +16,16 @@ void loadimage(){
   fondbleu=MLV_load_image("./Images/bigfondbleu.png");
   menu1=MLV_load_image("./Images/bigmenu1.png");
   menu2=MLV_load_image("./Images/bigmenu2.png");
+  menu3=MLV_load_image("./Images/bigmenu3.png");
   menu0=MLV_load_image("./Images/bigmenu0.png");
+  menuo1=MLV_load_image("./Images/menuoptions1.png");
+  menuo2=MLV_load_image("./Images/menuoptions2.png");
+  menuo0=MLV_load_image("./Images/menuoptions0.png");
+  pause1=MLV_load_image("./Images/pause1.png");
+  pause2=MLV_load_image("./Images/pause2.png");
+  pause0=MLV_load_image("./Images/pause0.png");
+  sousmenu1=MLV_load_image("./Images/sousmenu1.png");
+  sousmenu0=MLV_load_image("./Images/sousmenu0.png");
   score=MLV_load_image("./Images/bigscore.png");
   ombrerouge=MLV_load_image("./Images/bigombrerouge.png");
   ombreorange=MLV_load_image("./Images/bigombreorange.png");

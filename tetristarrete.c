@@ -17,10 +17,12 @@ int main(){
   MLV_create_window("Tetris", "rectangle", 600, 648);
   loadimage();
   while(1){
+    afficher_fond(fond);
     switch(menu()){
     case 1:
       partie=fopen("./Partie", "r+");
       if(sauvegarde_existe(partie)){
+	afficher_fond(fond);
 	reprendre=sous_menu_jouer();
       }
       fini=0;
@@ -96,23 +98,26 @@ int main(){
 	  new_tick(&J,tick);
 	}
 	while (J.pause){
+	  afficher_fond(fond);
 	  switch(menu_pause()){
 	  case 1:
-	    ;
-	    break;
-	  case 2:
-	    partie=fopen("./Partie", "w");
-	    enregistrer_partie(J, partie, t, suivant, poche);
-	    fclose(partie);
-	    fini=2;/*Finir la partie sans enregistrer le score*/
-	    resume(&J, tick);
-	    break;
-	  case 0:
 	    afficher_fond(fond);
 	    afficher_score(&J);
 	    afficher_niveau(&J);
 	    afficher_next(&suivant);
 	    afficher_poche(&poche);
+	    resume(&J, tick);
+	    break;
+	  case 2:
+	    partie=fopen("./Partie", "w");
+	    enregistrer_partie(J, partie, t, suivant, poche);
+	    fclose(partie);
+	    MLV_draw_text(50, 50, "Partie Sauvegardée", MLV_COLOR_WHITE);
+	    MLV_actualise_window();
+	    MLV_wait_seconds(2);
+	    break;
+	  case 0:
+	    fini=2;/*Finir la partie sans enregistrer le score*/
 	    resume(&J, tick);
 	    break;
 	  }
@@ -131,7 +136,7 @@ int main(){
       MLV_wait_seconds(5);
       break;
     case 3:
-      fond=options();
+      fond=options(fond);
       break;
     case 0:
       exit(EXIT_SUCCESS);

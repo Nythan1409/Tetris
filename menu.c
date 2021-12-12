@@ -14,11 +14,10 @@ int menu(){/*Renverra 1 pour un joueur, 2 pour Scores, 0 pour options*/
       MLV_draw_image(menu2, 0, 0);
       break;
     case 3:
-      MLV_draw_image(menu0, 0, 0);
+      MLV_draw_image(menu3, 0, 0);
       break;
     case 0:
-      MLV_clear_window(MLV_COLOR_BLACK);
-      MLV_draw_text(50,50, "Quiter", MLV_COLOR_WHITE);
+      MLV_draw_image(menu0, 0, 0);
       break;
     }
     MLV_actualise_window();
@@ -52,16 +51,13 @@ int menu_pause(){
   while(selection==-1){
     switch(curseur){
     case 1:
-      MLV_clear_window(MLV_COLOR_BLACK);
-      MLV_draw_text(50,50, "Commandes", MLV_COLOR_WHITE);
+      MLV_draw_image(pause1, 0, 0);
       break;
     case 2:
-      MLV_clear_window(MLV_COLOR_BLACK);
-      MLV_draw_text(50,50, "Sauvegarder", MLV_COLOR_WHITE);
+      MLV_draw_image(pause2, 0, 0);
       break;
     case 0:
-      MLV_clear_window(MLV_COLOR_BLACK);
-      MLV_draw_text(50,50, "Reprendre", MLV_COLOR_WHITE);
+      MLV_draw_image(pause0, 0, 0);
       break;
     }
     MLV_actualise_window();
@@ -95,12 +91,10 @@ int sous_menu_jouer(){
   while(selection==-1){
     switch(curseur){
     case 0:
-      MLV_clear_window(MLV_COLOR_BLACK);
-      MLV_draw_text(50,50, "Nouvelle Partie", MLV_COLOR_WHITE);
+      MLV_draw_image(sousmenu1, 0, 0);
       break;
     case 1:
-      MLV_clear_window(MLV_COLOR_BLACK);
-      MLV_draw_text(50,50, "Reprendre", MLV_COLOR_WHITE);
+      MLV_draw_image(sousmenu0, 0, 0);
       break;
     }
     MLV_actualise_window();
