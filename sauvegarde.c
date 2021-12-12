@@ -104,7 +104,7 @@ void enregistrer_partie(jeu J, FILE* fichier, tetrimino t, tetrimino s, tetrimin
       fprintf(fichier, "%d\n", J.mat[i][j]);
     }
   }
-  fprintf(fichier, "%d %d %d %d %d\n", t.type, t.posx, t.posy, s.type, p.type);
+  fprintf(fichier, "%d %d %d\n", t.type, s.type, p.type);
 }
 
 void charger_partie(jeu* J, FILE* fichier, tetrimino* t, tetrimino* s, tetrimino* p){/*Initialise les valeurs des variables sauvegardées telles qu'elles étaient à la sauvegarde*/
@@ -116,8 +116,10 @@ void charger_partie(jeu* J, FILE* fichier, tetrimino* t, tetrimino* s, tetrimino
       fscanf(fichier, "%d\n", &(J->mat[i][j]));
     }
   }
-  fscanf(fichier, "%d %d %d %d %d\n", &(t->type), &(t->posx), &(t->posy), &(s->type), &(p->type));
+  fscanf(fichier, "%d %d %d\n", &(t->type), &(s->type), &(p->type));
   matricetetrimino(t->type, t->mat);
+  t->posx=3;
+  t->posy=0; /*On n'a pas sauvegardé la position car il est plus agréable pour le joueur de reprendre une partie avec une pièce qui commence en haut du plateau*/
   matricetetrimino(s->type, s->mat);
   s->posx=3;
   s->posy=0;
