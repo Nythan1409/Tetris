@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-void enregistrer_score(jeu J, FILE* fichier){
+void enregistrer_score(jeu J, FILE* fichier){/*Demande à l'utilsateur un nom de 3 lettres, puis enregistre ce nom avec le score de la partie (à utiliser en fin de partie)*/
   int x=0;
   char c1=0, c2=0, c3=0;
   MLV_clear_window(MLV_COLOR_BLACK);
@@ -40,7 +40,7 @@ void enregistrer_score(jeu J, FILE* fichier){
   MLV_wait_seconds(1);
 }
 
-void top_10(FILE* fichier){
+void top_10(FILE* fichier){/*Affiche le classement des 10 meilleurs scores, et leurs noms associés*/
   char noms[100][3];
   int scores[100];
   int i=0;
@@ -95,9 +95,9 @@ void top_10(FILE* fichier){
   MLV_actualise_window();
 }
 
-void enregistrer_partie(jeu J, FILE* fichier, tetrimino t, tetrimino s, tetrimino p){
+void enregistrer_partie(jeu J, FILE* fichier, tetrimino t, tetrimino s, tetrimino p){/*Enregistre les paramètres de la partie en cours dans le fichier*/
   int i,j;
-  fprintf(fichier, "a"); /*Caractère que le main lira s'il y a un fichier*/
+  fprintf(fichier, "a"); /*Caractère que le main lira quand on vérifiera si une partie existe. Si on ne met pas un caractère ici, le premier caractère de la sauvegarde ne sera plus lu au moment de la charger*/
   fprintf(fichier, "%d %d %d %d %d %d %d %lf\n", J.score, J.niveau, J.palier, J.lasttick, J.timeallowed, J.droitstock, J.piecevide, J.vitesse);
   for(j=0;j<20;j++){
     for(i=0; i<10; i++){
@@ -107,7 +107,7 @@ void enregistrer_partie(jeu J, FILE* fichier, tetrimino t, tetrimino s, tetrimin
   fprintf(fichier, "%d %d %d %d %d\n", t.type, t.posx, t.posy, s.type, p.type);
 }
 
-void charger_partie(jeu* J, FILE* fichier, tetrimino* t, tetrimino* s, tetrimino* p){
+void charger_partie(jeu* J, FILE* fichier, tetrimino* t, tetrimino* s, tetrimino* p){/*Initialise les valeurs des variables sauvegardées telles qu'elles étaient à la sauvegarde*/
   int i,j;
   fscanf(fichier, "%d %d %d %d %d %d %d %lf\n", &(J->score), &(J->niveau), &(J->palier), &(J->lasttick), &(J->timeallowed), &(J->droitstock), &(J->piecevide), &(J->vitesse));
   J->pause=0;
@@ -126,7 +126,7 @@ void charger_partie(jeu* J, FILE* fichier, tetrimino* t, tetrimino* s, tetrimino
   p->posy=0;
 }
 
-int sauvegarde_existe(FILE* fichier){
+int sauvegarde_existe(FILE* fichier){/*Vérifie si le fichier contient quelque chose*/
   if(fgetc(fichier)==EOF){
     return 0;
   }

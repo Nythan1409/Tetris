@@ -1,11 +1,11 @@
 #include "tetris.h"
 
-jeu generer_jeu(){
+jeu generer_jeu(){/*Initialise les valeurs des paramètres pour une nouvelle partie*/
   jeu J;
   int x,y;
   for(x=0;x<10;x++){
     for(y=0;y<20;y++){
-      J.mat[x][y]=0;
+      J.mat[x][y]=0; /*Met la grille vide*/
     }
   }
   J.niveau=1;
@@ -20,7 +20,7 @@ jeu generer_jeu(){
   return J;
 }
 
-void matricetetrimino(int a, int M[4][4]){
+void matricetetrimino(int a, int M[4][4]){/*Initialise la matrice d'une pièce en fonction de son type (qui correspond à sa forme et sa couleur)*/
   int x,y;
   for(x=0;x<4;x++){
     for(y=0;y<4;y++){
@@ -75,7 +75,7 @@ void matricetetrimino(int a, int M[4][4]){
   }
 }
 
-tetrimino generer_piece(){
+tetrimino generer_piece(){/*Génère une nouvelle pièce de type aléatoire à la position initiale dans la grille*/
   tetrimino t;
   t.type=rand()%7+1;
   t.posx=3;
@@ -84,7 +84,7 @@ tetrimino generer_piece(){
   return t;
 }
 
-tetrimino piece_vide(){
+tetrimino piece_vide(){/*Renvoie une piece vide*/
   tetrimino t;
   t.type=8; /*Le type 8 est réservé à une pièce vide*/
   t.posx=0;
@@ -93,7 +93,7 @@ tetrimino piece_vide(){
   return t;
 }
 
-void copier_piece(tetrimino* dest, tetrimino* source){
+void copier_piece(tetrimino* dest, tetrimino* source){/*Copie le type, la matrice et la position de la pièce source dans la pièce dest*/
   int x,y;
   dest->posx=source->posx;
   dest->posy=source->posy;

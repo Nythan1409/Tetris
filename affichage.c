@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-void loadimage(){
+void loadimage(){/*On charge toutes les images nécessaires à l'affichage*/
   grille=MLV_load_image("./Images/grille.png");
   next=MLV_load_image("./Images/next.png");
   rouge=MLV_load_image("./Images/rouge.png");
@@ -36,7 +36,7 @@ void loadimage(){
   ombreviolet=MLV_load_image("./Images/ombreviolet.png");
 }
 
-void afficher_fond(int fond){
+void afficher_fond(int fond){/*Affiche l'image correspondant à la valeur de fond*/
   switch(fond){
   case 1:
     MLV_draw_image(fondbleu, 0, 0);
@@ -50,16 +50,16 @@ void afficher_fond(int fond){
   }
 }
 
-void afficher_grille(jeu* J){ /* Nécessite d'avoir fait 8 MLV_load_image*/
+void afficher_grille(jeu* J){ /*Affiche la grillle du jeu et les pièces qu'elle contient*/
   int x,y;
-  MLV_draw_image(grille, 72, 72); /*grille est la première image*/
+  MLV_draw_image(grille, 72, 72);
   for(x=0;x<10;x++){
     for(y=0;y<20;y++){
-      switch(J->mat[x][y]){ /*Les autres sont les couleurs*/
-      case 0:
+      switch(J->mat[x][y]){/*On parcourt les cases*/
+      case 0:/*Pas de pièce dans la case*/
 	;
 	break;
-      case 1:
+      case 1:/*Pièce de la couleur correspondante dans la case*/
 	MLV_draw_image(rouge, 72+(x+1)*24, 72+y*24);
 	break;
       case 2:
@@ -79,14 +79,14 @@ void afficher_grille(jeu* J){ /* Nécessite d'avoir fait 8 MLV_load_image*/
 	break;
       case 7:
 	MLV_draw_image(violet, 72+(x+1)*24, 72+y*24);
-	break;
+	break;/**/
       }
     }
   }
   MLV_actualise_window();
 }
 
-void afficher_piece(tetrimino* t){
+void afficher_piece(tetrimino* t){/*Affiche la pièce en jeu par-dessus la grille*/
   int x,y;
   for(x=0;x<4;x++){
     for(y=0;y<4;y++){
@@ -120,7 +120,7 @@ void afficher_piece(tetrimino* t){
   MLV_actualise_window();
 }
 
-void afficher_next(tetrimino* t){
+void afficher_next(tetrimino* t){/*Affiche la prochaine pièce dans la case next en haut à droite*/
   int x,y;
   int a=2;
   if(t->type==3 || t->type==5){
@@ -159,7 +159,7 @@ void afficher_next(tetrimino* t){
   MLV_actualise_window();
 }
 
-void afficher_score(jeu* J){
+void afficher_score(jeu* J){/*Affiche le score dans son cadre*/
   char n[20];
   sprintf(n, "%d", J->score);
   MLV_draw_image(score, 384, 288);
@@ -167,7 +167,7 @@ void afficher_score(jeu* J){
   MLV_actualise_window();
 }
 
-void afficher_niveau(jeu* J){
+void afficher_niveau(jeu* J){/*Affiche le niveau dans son cadre*/
   char n[20];
   sprintf(n, "%d", J->niveau);
   MLV_draw_image(score, 384, 384);
@@ -175,7 +175,7 @@ void afficher_niveau(jeu* J){
   MLV_actualise_window();
 }
 
-void preshot(tetrimino* t, jeu* J){
+void preshot(tetrimino* t, jeu* J){/*Affiche la pièce en jeu de manière transparente là où elle va tomber si on utilise chuterapide*/
   tetrimino ombre;
   int x,y;
   copier_piece(&ombre, t);
@@ -214,7 +214,7 @@ void preshot(tetrimino* t, jeu* J){
   MLV_actualise_window();
 }
 
-void afficher_poche(tetrimino* t){
+void afficher_poche(tetrimino* t){/*Affiche la pièce qui se trouve dans la poche s'il y en a une*/
     int x,y;
   int a=2;
   if(t->type==3 || t->type==5){
@@ -253,7 +253,7 @@ void afficher_poche(tetrimino* t){
   MLV_actualise_window();
 }
 
-void nouvelle_image(int tick, tetrimino* t, jeu* J){
+void nouvelle_image(int tick, tetrimino* t, jeu* J){/*Réaffiche la pièce en jeu à chaque tick pour voir son mouvement dans la grille*/
   if (tick%(1000/25)==0){
     afficher_grille(J);
     preshot(t,J);

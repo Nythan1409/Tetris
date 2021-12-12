@@ -134,7 +134,7 @@ void rotation_g(tetrimino* t, jeu* J){ /*Fais une rotation par la gauche*/
   }
 }
 
-int lignes_completes(jeu* J){
+int lignes_completes(jeu* J){/*Renvoie le nombre de lignes complètes dans la grille et les supprime (à utiliser après la chute d'une pièce)*/
   int lignes=0;
   int complete=1;
   int x,y;
