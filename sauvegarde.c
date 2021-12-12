@@ -2,7 +2,7 @@
 
 void enregistrer_score(jeu J, FILE* fichier){
   int x=0;
-  char c1, c2, c3;
+  char c1=0, c2=0, c3=0;
   MLV_clear_window(MLV_COLOR_BLACK);
   MLV_draw_text(100, 100, "Entrez votre nom (3 lettres)", MLV_COLOR_WHITE);
   MLV_actualise_window();
