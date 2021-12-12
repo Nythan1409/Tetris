@@ -40,12 +40,12 @@ int main(){
 	break;
       }
       fclose(partie);
-      afficher_fond(fond);
+      afficher_fond(fond); /*On affiche les graphismes du jeu*/
       afficher_score(&J);
       afficher_niveau(&J);
       afficher_next(&suivant);
       afficher_poche(&poche);
-      while(fini==0){
+      while(fini==0){ /**/
 	pieceposee=0;
 	J.droitstock=1;
 	while (!pieceposee){
@@ -53,15 +53,15 @@ int main(){
 	    pieceposee=0;
 	    tick=MLV_get_time();
 	    nouvelle_image(tick, &t, &J);
-	    if (!evenement(&t, &poche, &J, tick)||J.piecevide){
-	      new_tick(&J, tick);
+	    if (!evenement(&t, &poche, &J, tick)||J.piecevide){ /*On observe les evenements, si un evenement stoppe l'execution d'un tick, on rentre dans le if*/
+	      new_tick(&J, tick); /*On inclut la pièce dans le jeu est on reinitialise le tick*/
 	      J.piecevide=0;
 	      inclure_piece(&t, &J);
 	      augmenter_score(&J);
 	      afficher_score(&J);
 	      afficher_niveau(&J);
 	      fini=fin_partie(J);
-	      if (!fini){
+	      if (!fini){ /*Si le jeu n'est pas fini on recharge les tetriminos*/
 		copier_piece(&t, &suivant);
 		suivant=generer_piece();
 		afficher_next(&suivant);
@@ -71,16 +71,16 @@ int main(){
 	      break;
 	    }
 	  }while (!test_tick(&J, tick));
-	  if (J.pause)
+	  if (J.pause) /*Si le jeu est mis en pause on quitte l'execution de la boucle*/
 	    break;
 	  if (est_en_bas(&t, &J)){
-	    if (tick-timer==J.timeallowed) {
+	    if (tick-timer==J.timeallowed) { /*Si la pièce est en bas et qu'un tick entier c'est écoulé, on inclut la pièce dans le jeu*//
 	      inclure_piece(&t, &J);
 	      augmenter_score(&J);
 	      afficher_score(&J);
 	      afficher_niveau(&J);
 	      fini=fin_partie(J);
-	      if (!fini){
+	      if (!fini){ /*Si la partie n'est pas finie, on recharge des nouveaux tetriminos*/
 		copier_piece(&t, &suivant);
 		suivant=generer_piece();
 		afficher_next(&suivant);
@@ -89,19 +89,19 @@ int main(){
 	      pieceposee=1;
 	    }
 	    else{
-	      timer=tick;
+	      timer=tick; /*Si le temps depuis le dernier tick ne s'est pas écoulé, on stocke le temps dans le timer*/
 	    }
 	  }
 	  else{
-	    chute(&t);
+	    chute(&t); /*On fait chuter la pièce si la pièce n'est pas en bas*/
 	  }
-	  new_tick(&J,tick);
+	  new_tick(&J,tick); /*Stocke un nouveau tick à la fin de l'exécution du dernier*/
 	}
 	while (J.pause){
 	  afficher_fond(fond);
 	  switch(menu_pause()){
 	  case 1:
-	    afficher_fond(fond);
+	    afficher_fond(fond); /*Réaffiche le jeu si on sort du menu*/
 	    afficher_score(&J);
 	    afficher_niveau(&J);
 	    afficher_next(&suivant);

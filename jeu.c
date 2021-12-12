@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-int position_impossible(tetrimino* t, jeu* J){
+int position_impossible(tetrimino* t, jeu* J){ /*Fonction pour savoir si la position que le tetrimino a est impossible dans la matrice du jeu*/
   int x,y;
   for(x=0;x<4;x++){
     for(y=0;y<4;y++){
@@ -12,7 +12,7 @@ int position_impossible(tetrimino* t, jeu* J){
   return 0;
 }
 
-int est_a_gauche(tetrimino* t, jeu* J){
+int est_a_gauche(tetrimino* t, jeu* J){ /*Sert à savoir si la pièce ne peut plus se déplacer à gauche */
   int a;
   t->posx--;
   a=position_impossible(t, J);
@@ -20,7 +20,7 @@ int est_a_gauche(tetrimino* t, jeu* J){
   return a;
 }
 
-int est_a_droite(tetrimino* t, jeu* J){
+int est_a_droite(tetrimino* t, jeu* J){ /*Sert à savoir si la pièce ne peut plus se déplacer à droite */
   int a;
   t->posx++;
   a=position_impossible(t, J);
@@ -28,7 +28,7 @@ int est_a_droite(tetrimino* t, jeu* J){
   return a;
 }
 
-int est_en_bas(tetrimino* t, jeu* J){
+int est_en_bas(tetrimino* t, jeu* J){ /*Sert à savoir si la pièce ne peut plus se déplacer en bas */
   int a;
   t->posy++;
   a=position_impossible(t, J);
@@ -36,7 +36,7 @@ int est_en_bas(tetrimino* t, jeu* J){
   return a;
 }
 
-void inclure_piece(tetrimino* t, jeu* J){
+void inclure_piece(tetrimino* t, jeu* J){ /*Inclut la pièce dans la matrice du jeu*/
   int x,y;
   for(x=0;x<4;x++){
     for(y=0;y<4;y++){
@@ -47,95 +47,18 @@ void inclure_piece(tetrimino* t, jeu* J){
   }
 }
 
-void chute(tetrimino* t){
+void chute(tetrimino* t){ /*Fais descendre le tetrimino*/
   t->posy++;
 }
 
-/*void chute2(tetrimino* t, jeu* J, tetrimino* poche){
-  int droitstock=1;
-  int tick, timer;
-  int chuterapide=0, pieceposee=0, piecevide=0;
-  MLV_Event event;
-  MLV_Keyboard_button sym;
-  MLV_Keyboard_modifier mod;
-  MLV_Button_state state;
-  afficher_grille(J);
-  preshot(t,J);
-  afficher_piece(t);
-  tick=MLV_get_time();
-  while(!pieceposee){
-    do{
-      tick=MLV_get_time();
-      nouvelle_image(tick, t, J);
-      event=MLV_get_event(&sym, &mod, NULL, NULL, NULL, NULL, NULL, NULL, &state);
-      if (event== MLV_KEY){
-	if (state==MLV_PRESSED){
-	  if (sym==MLV_KEYBOARD_s){
-	    chuterapide=chute_rapide(t, J);
-	    break;
-	  }
-	  if (sym==MLV_KEYBOARD_q){
-	    if(!est_a_gauche(t, J)){
-	      t->posx--;
-	    }
-	  }
-	  if (sym==MLV_KEYBOARD_d){
-	    if(!est_a_droite(t, J)){
-	      t->posx++;
-	    }
-	  }
-	  if (sym==MLV_KEYBOARD_e){
-	    rotation_d(t, J);
-	  }
-	  if (sym==MLV_KEYBOARD_a){
-	    rotation_g(t, J);
-	  }
-	  if (sym==MLV_KEYBOARD_z){
-	    if(droitstock==1){
-	      stocker(t, poche);
-	      droitstock=0;
-	      if (t->type==8){
-		piecevide=1;
-		break;
-	      }
-	    }
-	  }
-	}
-      }
-    } while((!test_tick(J, tick)));
-    if (chuterapide||piecevide){
-      new_tick(J, tick);
-      chuterapide=0;
-      piecevide=0;
-      inclure_piece(t, J);
-      break;
-    }
-    bouton=0;
-    if (est_en_bas(t, J)){
-      if (tick-timer==J->timeallowed) {
-	inclure_piece(t, J);
-	pieceposee=1;
-      }
-      else{
-	timer=tick;
-      }
-    }
-    else{
-      t->posy++;
-    }
-    new_tick(J,tick);
-  }
-}
-*/
-
-int chute_rapide(tetrimino* t, jeu *J){
+int chute_rapide(tetrimino* t, jeu *J){ /*Fais descendre le tetrimino à la position la plus basse qu'il peut avoir*/
   while(!est_en_bas(t, J)){
     t->posy++;
   }
   return 1;
 }
 
-void rotation_d(tetrimino* t, jeu* J){
+void rotation_d(tetrimino* t, jeu* J){ /*Fais une rotation pas la droite*/
   int x,y;
   int M[4][4];
   int save[4][4];
@@ -173,7 +96,7 @@ void rotation_d(tetrimino* t, jeu* J){
   }
 }
 
-void rotation_g(tetrimino* t, jeu* J){
+void rotation_g(tetrimino* t, jeu* J){ /*Fais une rotation par la gauche*/
   int x,y;
   int M[4][4];
   int save[4][4];
@@ -238,38 +161,38 @@ int lignes_completes(jeu* J){
   return lignes;
 }
 
-void augmenter_score(jeu* J){
+void augmenter_score(jeu* J){ /*Augmente le score suivant le nombre de lignes complétées*/
   int a;
   switch(lignes_completes(J)){
   case 0:
-    a=1;
+    a=1; /*1 point pas pièce posée*/
     break;
   case 1:
-    a=100*J->niveau;
+    a=100*J->niveau; /*100 points* le niveau pour une ligne complétée*/
     break;
   case 2:
-    a=300*J->niveau;
+    a=300*J->niveau; /*300 points* le niveau pour deux lignes complétées*/
     break;
   case 3:
-    a=500*J->niveau;
+    a=500*J->niveau; /*500 points* le niveau pour trois lignes complétées*/
     break;
   default:
-    a=800*J->niveau;
+    a=800*J->niveau; /*800 points* le niveau pour un tetris (=4 lignes complétées)*/
     break;
   }
   J->score+=a;
   augmenter_niveau(J);
 }
 
-void augmenter_niveau(jeu* J){
+void augmenter_niveau(jeu* J){ /*Fonction qui augmente le niveau*/
   while(J->score>=J->palier){
     J->niveau++;
-    J->vitesse*=1.1;
+    J->vitesse*=1.1; /*La vitesse du jeu est augmentée par les niveaux*/
     J->palier=50*(J->niveau)*(J->niveau+1);
   }
 }
 
-void stocker(tetrimino* t, tetrimino* poche){
+void stocker(tetrimino* t, tetrimino* poche){ /*Stock du tetrimino actif dans le jeu*/
   tetrimino transition;
   t->posx=3;
   t->posy=0;
@@ -279,7 +202,7 @@ void stocker(tetrimino* t, tetrimino* poche){
   afficher_poche(poche);
 }
 
-int test_tick(jeu* J, int tick){ 
+int test_tick(jeu* J, int tick){ /*Teste si le temps passé depuis le dernier tick est passé ou non*/ 
   int diff;
   diff=tick-(J->lasttick);
   if (diff>=J->timeallowed){
@@ -288,13 +211,13 @@ int test_tick(jeu* J, int tick){
   return 0;
 }
 
-void new_tick(jeu* J, int tick){
-  J->timeallowed=1000/J->vitesse;
+void new_tick(jeu* J, int tick){ /*Stocke un nouveau tick dans la variable jeu, le tick est le temps de la dernière action (ici la chute), il stocke aussi le temps autorisé au tick*/
+  J->timeallowed=1000/J->vitesse; /*Le temps autorisé dépend de la vitesse du jeu*/
   J->lasttick=tick;
 }
 
 
-int fin_partie(jeu J){
+int fin_partie(jeu J){ /*Détermine si la partie est finie ou non*/
   int x;
   for(x=0;x<10;x++){
     if(J.mat[x][0]!=0){
@@ -305,7 +228,7 @@ int fin_partie(jeu J){
 }
 
 
-int evenement(tetrimino* t, tetrimino* poche, jeu* J, int tick){ /* Fait les évenements durant les ticks, renvoie 1 si la fonction doit continuer, 0 si elle doit s'arrêter */
+int evenement(tetrimino* t, tetrimino* poche, jeu* J, int tick){ /*Execute les différents évenements qui occurent durant le jeu grâce à la fonction MLV_get_event(), renvoie 1 si la fonction doit continuer, 0 si elle doit s'arrêter */
   MLV_Event event;
   MLV_Keyboard_button sym;
   MLV_Keyboard_modifier mod;
@@ -315,27 +238,27 @@ int evenement(tetrimino* t, tetrimino* poche, jeu* J, int tick){ /* Fait les év
   if (event== MLV_KEY){
     if (state==MLV_PRESSED){
       if (!(J->pause)){
-	if (sym==MLV_KEYBOARD_DOWN){
+	if (sym==MLV_KEYBOARD_DOWN){ /*Si la touche bas est pressée, la chute rapide est enclenchée*/
 	  chute_rapide(t, J);
 	  continuer=0;
 	}
-	if (sym==MLV_KEYBOARD_LEFT){
+	if (sym==MLV_KEYBOARD_LEFT){ /*Si la touche gauche est pressée, le tetrimino va à gauche*/
 	  if(!est_a_gauche(t, J)){
 	    t->posx--;
 	  }
 	}
-	if (sym==MLV_KEYBOARD_RIGHT){
+	if (sym==MLV_KEYBOARD_RIGHT){ /*Si la touche droite est pressée, le tetrimino va à droite*/
 	  if(!est_a_droite(t, J)){
 	    t->posx++;
 	  }
 	}
-	if (sym==MLV_KEYBOARD_d){
+	if (sym==MLV_KEYBOARD_z){ /*Si la touche z est pressée, la rotation droite est faite*/
 	  rotation_d(t, J);
 	}
-	if (sym==MLV_KEYBOARD_q){
+	if (sym==MLV_KEYBOARD_a){ /*Si la touche a est pressée, la rotation gauche est faite*/
 	  rotation_g(t, J);
 	}
-	if (sym==MLV_KEYBOARD_s){
+	if (sym==MLV_KEYBOARD_SPACE){ /*Si la touche Escpace est pressée, le tetrimino est stocké*/
 	  if(J->droitstock){
 	    stocker(t, poche);
 	    J->droitstock=0;
@@ -344,7 +267,7 @@ int evenement(tetrimino* t, tetrimino* poche, jeu* J, int tick){ /* Fait les év
 	    }
 	  }
 	}
-	if (sym==MLV_KEYBOARD_SPACE){
+	if (sym==MLV_KEYBOARD_ESCAPE){ /*Si la touche Echap est pressée, la pause est enclenchée*/
 	  set_pause(J);
 	}
       }
@@ -353,11 +276,11 @@ int evenement(tetrimino* t, tetrimino* poche, jeu* J, int tick){ /* Fait les év
   return continuer;
 }
 
-void set_pause(jeu* J){
+void set_pause(jeu* J){ /*Met le jeu en pause*/
   J->pause=1; 
 }
 
-void resume(jeu* J, int tick){
+void resume(jeu* J, int tick){ /*Reprend l'execution du jeu*/
   J->pause=0;
   new_tick(J, tick);
 }

@@ -1,14 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
+#include <time.h> /*On a besoin de la bibliothèque time.h pour l'aléatoire*/
 #include <MLV/MLV_all.h>
 #define TAILLE_MAX 1024
 
 typedef struct {
   int posx;
   int posy;
-  int type; /*Contient un int en fonction de la pièce*/
+  int type; /*Contient un int en fonction de la pièce, 8 si tetrimino vide*/
   int mat[4][4]; /*Contient un int pour la couleur du carré, 0 si vide*/
 }tetrimino;
 
@@ -16,13 +16,13 @@ typedef struct {
 typedef struct {
   int mat[10][20];
   int score;
-  int niveau;
+  int niveau; /*Le niveau du jeu*/
   int palier; /*Palier de points pour atteindre le prochain niveau*/
-  double vitesse;
-  int lasttick;
-  int timeallowed;
-  int droitstock;
-  int piecevide;
+  double vitesse; /*Le multiplicateur de vitesse du jeu*/
+  int lasttick; /*Le temps auquel la dernière action a été faite, fourni grace à MLV_get_time*/
+  int timeallowed; /*Le temps autorisé avant le prochain tick*/
+  int droitstock; /*Booléen qui détermine si le stock est possiblé*/
+  int piecevide; /*Booléen qui détermine si la poche est vide*/
   int pause;
 }jeu;
 
