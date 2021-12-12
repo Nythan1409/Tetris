@@ -5,8 +5,8 @@ int options(int fond){
   int curseur=fond;
   char bout[20];
   MLV_Keyboard_button bouton;
-  afficher_fond(fond);
   while(selection==-1){
+    afficher_fond(curseur);
     switch(curseur){
     case 1:
       MLV_draw_image(menuo1, 0, 0);

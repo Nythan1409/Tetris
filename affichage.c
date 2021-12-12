@@ -1,23 +1,23 @@
 #include "tetris.h"
 
 void loadimage(){
-  grille=MLV_load_image("./Images/biggrille.png");
-  next=MLV_load_image("./Images/bignext.png");
-  rouge=MLV_load_image("./Images/bigrouge.png");
-  orange=MLV_load_image("./Images/bigorange.png");
-  jaune=MLV_load_image("./Images/bigjaune.png");
-  vert=MLV_load_image("./Images/bigvert.png");
-  cyan=MLV_load_image("./Images/bigcyan.png");
-  bleu=MLV_load_image("./Images/bigbleu.png");
-  violet=MLV_load_image("./Images/bigviolet.png");
-  blanc=MLV_load_image("./Images/bigblanc.png");
-  fondrouge=MLV_load_image("./Images/bigfondrouge.png");
-  fondvert=MLV_load_image("./Images/bigfondvert.png");
-  fondbleu=MLV_load_image("./Images/bigfondbleu.png");
-  menu1=MLV_load_image("./Images/bigmenu1.png");
-  menu2=MLV_load_image("./Images/bigmenu2.png");
-  menu3=MLV_load_image("./Images/bigmenu3.png");
-  menu0=MLV_load_image("./Images/bigmenu0.png");
+  grille=MLV_load_image("./Images/grille.png");
+  next=MLV_load_image("./Images/next.png");
+  rouge=MLV_load_image("./Images/rouge.png");
+  orange=MLV_load_image("./Images/orange.png");
+  jaune=MLV_load_image("./Images/jaune.png");
+  vert=MLV_load_image("./Images/vert.png");
+  cyan=MLV_load_image("./Images/cyan.png");
+  bleu=MLV_load_image("./Images/bleu.png");
+  violet=MLV_load_image("./Images/violet.png");
+  blanc=MLV_load_image("./Images/blanc.png");
+  fondrouge=MLV_load_image("./Images/fondrouge.png");
+  fondvert=MLV_load_image("./Images/fondvert.png");
+  fondbleu=MLV_load_image("./Images/fondbleu.png");
+  menu1=MLV_load_image("./Images/menu1.png");
+  menu2=MLV_load_image("./Images/menu2.png");
+  menu3=MLV_load_image("./Images/menu3.png");
+  menu0=MLV_load_image("./Images/menu0.png");
   menuo1=MLV_load_image("./Images/menuoptions1.png");
   menuo2=MLV_load_image("./Images/menuoptions2.png");
   menuo0=MLV_load_image("./Images/menuoptions0.png");
@@ -26,14 +26,14 @@ void loadimage(){
   pause0=MLV_load_image("./Images/pause0.png");
   sousmenu1=MLV_load_image("./Images/sousmenu1.png");
   sousmenu0=MLV_load_image("./Images/sousmenu0.png");
-  score=MLV_load_image("./Images/bigscore.png");
-  ombrerouge=MLV_load_image("./Images/bigombrerouge.png");
-  ombreorange=MLV_load_image("./Images/bigombreorange.png");
-  ombrejaune=MLV_load_image("./Images/bigombrejaune.png");
-  ombrevert=MLV_load_image("./Images/bigombrevert.png");
-  ombrecyan=MLV_load_image("./Images/bigombrecyan.png");
-  ombrebleu=MLV_load_image("./Images/bigombrebleu.png");
-  ombreviolet=MLV_load_image("./Images/bigombreviolet.png");
+  score=MLV_load_image("./Images/score.png");
+  ombrerouge=MLV_load_image("./Images/ombrerouge.png");
+  ombreorange=MLV_load_image("./Images/ombreorange.png");
+  ombrejaune=MLV_load_image("./Images/ombrejaune.png");
+  ombrevert=MLV_load_image("./Images/ombrevert.png");
+  ombrecyan=MLV_load_image("./Images/ombrecyan.png");
+  ombrebleu=MLV_load_image("./Images/ombrebleu.png");
+  ombreviolet=MLV_load_image("./Images/ombreviolet.png");
 }
 
 void afficher_fond(int fond){

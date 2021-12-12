@@ -18,3 +18,6 @@ sauvegarde.o: sauvegarde.c tetris.h
 
 options.o : options.c tetris.h
 	gcc -Wall `pkg-config --cflags MLV` `pkg-config --libs-only-other --libs-only-L MLV` options.c `pkg-config --libs-only-l MLV` -c options.c
+
+clean:
+	rm *.o tetris
