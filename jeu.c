@@ -219,8 +219,8 @@ void new_tick(jeu* J, int tick){ /*Stocke un nouveau tick dans la variable jeu, 
 
 int fin_partie(jeu J){ /*Détermine si la partie est finie ou non*/
   int x;
-  for(x=0;x<10;x++){
-    if(J.mat[x][0]!=0){
+  for(x=3;x<=6;x++){
+    if(J.mat[x][0]!=0 || J.mat[x][1]!=0){ /*Si une pièce se trouve en haut du tableau et dans l'une des colonnes du milieu, elle empêchera la prochaine de s'insérer, donc la partie est perdue*/
       return 1;
     }
   }
